@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D checkLeft;
     private BoxCollider2D checkRight;
 
-    public Health health;
+    private Health health;
 
     private string[] directions = {"Up", "Down", "Left", "Right"};
     private bool[] eligibleDirections = { true, true, true, true };
     private Vector2[] directionVectors = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+
+    private bool disabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetMove();
+        if (!disabled)
+        {
+            GetMove();
+        }
+    }
+
+    public void SetDisabled(bool tOrF)
+    {
+        disabled = tOrF;
     }
 
     private void GetMove()

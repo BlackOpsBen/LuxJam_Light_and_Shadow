@@ -2,15 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
+    public GameManager gameManager;
+
     private GameObject[] hearts;
     private int health = 3;
 
     private void Start()
     {
-        hearts = new GameObject[] { GameObject.Find("Heart1"), GameObject.Find("Heart2"), GameObject.Find("Heart3") };
+        gameManager = FindObjectOfType<GameManager>();
+        hearts = new GameObject[] { GameObject.Find("Heart3"), GameObject.Find("Heart2"), GameObject.Find("Heart1") };
     }
     public void LoseHealth()
     {
@@ -22,16 +26,18 @@ public class Health : MonoBehaviour
                 health--;
                 if (health == 0)
                 {
-                    Die();
+                    gameManager.GameOver();
                 }
                 return;
             }
         }
     }
 
-    private void Die()
+    public void ResetHealth()
     {
-        Debug.LogWarning("You died!");
-        gameObject.GetComponent<PlayerMovement>().enabled = false;
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].SetActive(true);
+        }
     }
 }

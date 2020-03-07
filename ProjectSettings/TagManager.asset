@@ -7,6 +7,9 @@ TagManager:
   - Walls
   - GameManager
   - Health
+  - Spawn
+  - End
+  - Enemy
   layers:
   - Default
   - TransparentFX
