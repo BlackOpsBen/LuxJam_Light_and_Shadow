@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RestartGame()
     {
-        health.ResetHealth();
+        health.ResetHealth(true);
         currentHealth = 3;
         SceneManager.LoadScene(0);
         yield return null;

@@ -20,6 +20,7 @@ public class Touch : MonoBehaviour
         }
         else if (collision.CompareTag("Enemy"))
         {
+            health.ResetHealth(false);
             health.gameManager.GameOver();
         }
     }

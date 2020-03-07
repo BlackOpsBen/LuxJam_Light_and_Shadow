@@ -36,11 +36,11 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void ResetHealth()
+    public void ResetHealth(bool full)
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            hearts[i].GetComponent<Image>().enabled = true;
+            hearts[i].GetComponent<Image>().enabled = full;
         }
     }
 }
