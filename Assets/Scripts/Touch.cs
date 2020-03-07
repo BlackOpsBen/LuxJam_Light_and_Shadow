@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Touch : MonoBehaviour
 {
+    [SerializeField] GameObject collectibleSound;
+
     private Health health;
 
     private void Start()
@@ -26,6 +28,7 @@ public class Touch : MonoBehaviour
         else if (collision.CompareTag("Collectible"))
         {
             Debug.Log("You found a collectible!");
+            health.gameManager.PlaySound(collectibleSound);
             Destroy(collision.gameObject);
         }
     }

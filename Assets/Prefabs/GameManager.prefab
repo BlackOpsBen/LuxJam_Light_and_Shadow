@@ -367,6 +367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94e2ce5fe6867a4cbe976d884b8b91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  youDiedSound: {fileID: 1323706579044135770, guid: 86acad769bfd9fe4691cf789323f8a45,
+    type: 3}
+  winSound: {fileID: 1323706579044135770, guid: 85747f6599686154c917d9d97b0c836e,
+    type: 3}
+  startSound: {fileID: 1323706579044135770, guid: e88572fea583fb2418eadb2a72762f46,
+    type: 3}
 --- !u!114 &7592008997262284415
 MonoBehaviour:
   m_ObjectHideFlags: 0

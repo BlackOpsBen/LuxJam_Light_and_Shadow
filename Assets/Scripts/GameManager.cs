@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject youDiedSound;
+    [SerializeField] GameObject winSound;
+    [SerializeField] GameObject startSound;
+
     private PlayerMovement player;
     private bool canRestart = false;
     private bool canAdvance = false;
@@ -17,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         illuminate = GetComponent<Illuminate>();
         GetPlayer();
+        PlaySound(startSound);
     }
 
     private void GetPlayer()
@@ -62,6 +67,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over.");
+        PlaySound(youDiedSound);
         Debug.LogWarning("You died! PRESS ANY KEY TO RESTART");
         DisablePlayer();
         canRestart = true;
@@ -69,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete()
     {
+        PlaySound(winSound);
         Debug.Log("Level complete! PRESS ANY KEY TO CONTINUE");
         DisablePlayer();
         canAdvance = true;
@@ -84,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         yield return null;
+        PlaySound(startSound);
         GetPlayer();
         illuminate.ResetFuel();
         illuminate.SetDisabled(false);
@@ -95,9 +103,15 @@ public class GameManager : MonoBehaviour
         currentHealth = 3;
         SceneManager.LoadScene(0);
         yield return null;
+        PlaySound(startSound);
         GetPlayer();
         illuminate.ResetFuel();
         illuminate.SetDisabled(false);
     }
 
+    public void PlaySound(GameObject sound)
+    {
+        Debug.Log("Playing sound: " + sound.name);
+        Instantiate(sound, transform.position, Quaternion.identity);
+    }
 }

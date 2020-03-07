@@ -533,3 +533,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f748119c05918324e94c601788bdb271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleSound: {fileID: 1323706579044135770, guid: f57e08e5c7d770c48b34f83585ce7c8e,
+    type: 3}

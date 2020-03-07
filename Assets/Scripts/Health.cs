@@ -14,8 +14,8 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        //health = gameManager.GetHealth();
         gameManager = FindObjectOfType<GameManager>();
+        Debug.LogWarning("Game manager found");
         hearts = new GameObject[] { GameObject.Find("Heart3"), GameObject.Find("Heart2"), GameObject.Find("Heart1") };
     }
     public void LoseHealth()
@@ -25,7 +25,6 @@ public class Health : MonoBehaviour
             if (hearts[i].GetComponent<Image>().enabled)
             {
                 hearts[i].GetComponent<Image>().enabled = false;
-                //health--;
                 gameManager.LoseHealth();
                 if (gameManager.GetHealth() == 0)
                 {
