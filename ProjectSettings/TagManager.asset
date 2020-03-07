@@ -11,6 +11,7 @@ TagManager:
   - End
   - Enemy
   - Darkness
+  - Collectible
   layers:
   - Default
   - TransparentFX

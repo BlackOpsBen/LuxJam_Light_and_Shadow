@@ -23,5 +23,10 @@ public class Touch : MonoBehaviour
             health.ResetHealth(false);
             health.gameManager.GameOver();
         }
+        else if (collision.CompareTag("Collectible"))
+        {
+            Debug.Log("You found a collectible!");
+            Destroy(collision.gameObject);
+        }
     }
 }

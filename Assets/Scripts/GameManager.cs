@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     public void DisablePlayer()
     {
         player.SetDisabled(true);
+        illuminate.SetDisabled(true);
     }
 
     private IEnumerator LoadNextLevel()
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
         yield return null;
         GetPlayer();
         illuminate.ResetFuel();
+        illuminate.SetDisabled(false);
     }
 
     private IEnumerator RestartGame()
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
         yield return null;
         GetPlayer();
         illuminate.ResetFuel();
+        illuminate.SetDisabled(false);
     }
 
 }
