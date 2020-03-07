@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private bool canRestart = false;
     private bool canAdvance = false;
     private Health health;
+    private int currentHealth = 3;
 
     private void Start()
     {
@@ -46,6 +47,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LoseHealth()
+    {
+        currentHealth--;
+    }
+
+    public int GetHealth()
+    {
+        return currentHealth;
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over.");
@@ -76,6 +87,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator RestartGame()
     {
         health.ResetHealth();
+        currentHealth = 3;
         SceneManager.LoadScene(0);
         yield return null;
         GetPlayer();
