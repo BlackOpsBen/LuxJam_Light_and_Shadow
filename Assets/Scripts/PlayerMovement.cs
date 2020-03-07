@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] GameObject stepSound;
+    [SerializeField] GameObject oofSound;
+
     private BoxCollider2D checkUp;
     private BoxCollider2D checkDown;
     private BoxCollider2D checkLeft;
@@ -50,10 +53,12 @@ public class PlayerMovement : MonoBehaviour
                 if (eligibleDirections[i])
                 {
                     transform.position = new Vector3(transform.position.x + directionVectors[i].x, transform.position.y + directionVectors[i].y);
+                    PlaySound(stepSound);
                 }
                 else
                 {
                     HitWall();
+                    PlaySound(oofSound);
                 }
             }
         }
@@ -110,5 +115,10 @@ public class PlayerMovement : MonoBehaviour
                 Debug.LogError("Invalid Checker Collision Reset");
                 break;
         }
+    }
+
+    public void PlaySound(GameObject sound)
+    {
+        Instantiate(sound, transform.position, Quaternion.identity);
     }
 }

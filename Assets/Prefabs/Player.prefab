@@ -412,6 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05587c415e6ab8f44ad192d930f57b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepSound: {fileID: 1323706579044135770, guid: 225f1bc7fbd9b48428fede5214f2b718,
+    type: 3}
+  oofSound: {fileID: 1323706579044135770, guid: 3982046567a60b44fa38d5771e9c3858,
+    type: 3}
 --- !u!114 &1513074932
 MonoBehaviour:
   m_ObjectHideFlags: 0
