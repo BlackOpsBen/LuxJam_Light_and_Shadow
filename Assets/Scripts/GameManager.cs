@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject youDiedSound;
     [SerializeField] GameObject winSound;
     [SerializeField] GameObject startSound;
+
+    [SerializeField] Image swordIcon;
+    [SerializeField] Image swordBrokenIcon;
 
     private PlayerMovement player;
     private bool canRestart = false;
@@ -17,11 +21,16 @@ public class GameManager : MonoBehaviour
     private int currentHealth = 3;
     private Illuminate illuminate;
 
+    private bool hasSword = false;
+
     private void Start()
     {
         illuminate = GetComponent<Illuminate>();
         GetPlayer();
         PlaySound(startSound);
+
+        swordIcon.enabled = false;
+        swordBrokenIcon.enabled = false;
     }
 
     private void GetPlayer()
@@ -111,7 +120,25 @@ public class GameManager : MonoBehaviour
 
     public void PlaySound(GameObject sound)
     {
-        Debug.Log("Playing sound: " + sound.name);
         Instantiate(sound, transform.position, Quaternion.identity);
+    }
+
+    public bool GetHasSword()
+    {
+        return hasSword;
+    }
+
+    public void SetHasSword(bool tOrF)
+    {
+        swordIcon.enabled = tOrF;
+        hasSword = tOrF;
+    }
+
+    public IEnumerator UseSword()
+    {
+        SetHasSword(false);
+        swordBrokenIcon.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        swordBrokenIcon.enabled = false;
     }
 }

@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3458067036418935905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.475, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3458067036822517289}
@@ -534,4 +534,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibleSound: {fileID: 1323706579044135770, guid: f57e08e5c7d770c48b34f83585ce7c8e,
+    type: 3}
+  swordFoundSound: {fileID: 1323706579044135770, guid: afa050438c1606741a22355bc8e8bcac,
+    type: 3}
+  attackSound: {fileID: 1323706579044135770, guid: e2b5d5f771e460244a21a71094e23400,
+    type: 3}
+  enemyTouchSound: {fileID: 1323706579044135770, guid: 876ddee6c1cb96842a513529b1100ac1,
     type: 3}

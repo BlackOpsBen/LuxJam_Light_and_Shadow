@@ -14,10 +14,16 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        Debug.LogWarning("Game manager found");
+        StartCoroutine(DelayedGetGameManager());
         hearts = new GameObject[] { GameObject.Find("Heart3"), GameObject.Find("Heart2"), GameObject.Find("Heart1") };
     }
+
+    private IEnumerator DelayedGetGameManager()
+    {
+        yield return null;
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     public void LoseHealth()
     {
         for (int i = 0; i < hearts.Length; i++)

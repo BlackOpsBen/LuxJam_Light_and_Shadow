@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class Touch : MonoBehaviour
 {
     [SerializeField] GameObject collectibleSound;
+    [SerializeField] GameObject swordFoundSound;
+    [SerializeField] GameObject attackSound;
+    [SerializeField] GameObject enemyTouchSound;
 
     private Health health;
 
@@ -22,13 +25,31 @@ public class Touch : MonoBehaviour
         }
         else if (collision.CompareTag("Enemy"))
         {
-            health.ResetHealth(false);
-            health.gameManager.GameOver();
+            if (health.gameManager.GetHasSword())
+            {
+                health.gameManager.PlaySound(attackSound);
+                collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
+                Destroy(collision.gameObject);
+                StartCoroutine(health.gameManager.UseSword());
+            }
+            else
+            {
+                health.gameManager.PlaySound(enemyTouchSound);
+                health.ResetHealth(false);
+                health.gameManager.GameOver();
+            }
         }
         else if (collision.CompareTag("Collectible"))
         {
             Debug.Log("You found a collectible!");
             health.gameManager.PlaySound(collectibleSound);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("Sword"))
+        {
+            Debug.Log("You found a sword!");
+            health.gameManager.PlaySound(swordFoundSound);
+            health.gameManager.SetHasSword(true);
             Destroy(collision.gameObject);
         }
     }

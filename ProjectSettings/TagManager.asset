@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Darkness
   - Collectible
+  - Sword
   layers:
   - Default
   - TransparentFX
