@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     private bool canAdvance = false;
     private Health health;
     private int currentHealth = 3;
+    private Illuminate illuminate;
 
     private void Start()
     {
+        illuminate = GetComponent<Illuminate>();
         GetPlayer();
     }
 
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         yield return null;
         GetPlayer();
+        illuminate.ResetFuel();
     }
 
     private IEnumerator RestartGame()
@@ -91,6 +94,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
         yield return null;
         GetPlayer();
+        illuminate.ResetFuel();
     }
 
 }

@@ -10,6 +10,7 @@ TagManager:
   - Spawn
   - End
   - Enemy
+  - Darkness
   layers:
   - Default
   - TransparentFX
@@ -55,4 +56,7 @@ TagManager:
     locked: 0
   - name: Walls
     uniqueID: 4060022527
+    locked: 0
+  - name: Darkness
+    uniqueID: 2769589019
     locked: 0
