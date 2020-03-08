@@ -76,6 +76,11 @@ public class Illuminate : MonoBehaviour
         fuel = maxFuel;
     }
 
+    public float GetRemainingFuel()
+    {
+        return fuel;
+    }
+
     public void SetDisabled(bool tOrF)
     {
         disabled = tOrF;

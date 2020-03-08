@@ -31,6 +31,7 @@ public class Touch : MonoBehaviour
                 collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
                 Destroy(collision.gameObject);
                 StartCoroutine(health.gameManager.UseSword());
+                health.gameManager.GainCoins("Enemy");
             }
             else
             {
@@ -44,6 +45,7 @@ public class Touch : MonoBehaviour
             Debug.Log("You found a collectible!");
             health.gameManager.PlaySound(collectibleSound);
             Destroy(collision.gameObject);
+            health.gameManager.GainCoins("Collectible");
         }
         else if (collision.CompareTag("Sword"))
         {

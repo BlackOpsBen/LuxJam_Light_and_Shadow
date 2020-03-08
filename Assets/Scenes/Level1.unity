@@ -2694,6 +2694,31 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6786191188651857914, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786191188651857914, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786191188651857914, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786191188651857914, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786191188651857914, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7592008997262284385, guid: 3a983c049ad08ca4b9fa3ced3b66fd86,
         type: 3}
       propertyPath: m_LocalPosition.x
