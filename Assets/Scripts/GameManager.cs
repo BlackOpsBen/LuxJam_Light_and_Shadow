@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image swordIcon;
     [SerializeField] Image swordBrokenIcon;
 
+    [SerializeField] GameObject diedScreen;
+
     private SceneRandomizer sceneRandomizer;
 
     [SerializeField] TextMeshProUGUI coinCounter;
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         PlaySound(youDiedSound);
-        Debug.LogWarning("You died! PRESS ANY KEY TO RESTART"); // TODO make this happen in UI, not console.
+        //Instantiate(diedScreen, transform.position, Quaternion.identity);
         DisablePlayer();
         canRestart = true;
     }
@@ -103,6 +105,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Level complete! PRESS ANY KEY TO CONTINUE"); // TODO make this happen in UI, not console.
         DisablePlayer();
         GainCoins("Fuel");
+        if (hasSword)
+        {
+            GainCoins("Sword");
+            SetHasSword(false); // TODO add "+coins" on screen where sword disappears
+        }
         canAdvance = true;
     }
 
@@ -183,6 +190,9 @@ public class GameManager : MonoBehaviour
                 break;
             case "Fuel":
                 amount = fuelCoinAmount * Mathf.RoundToInt(illuminate.GetRemainingFuel()*100);
+                break;
+            case "Sword":
+                amount = swordCoinAmount;
                 break;
             default:
                 Debug.LogWarning("Invalid coin amount/source");
