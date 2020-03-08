@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool[] eligibleDirections = { true, true, true, true };
     private Vector2[] directionVectors = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
-    private bool disabled = false;
+    private bool disabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         checkDown = GameObject.Find("CheckDown").GetComponent<BoxCollider2D>();
         checkLeft = GameObject.Find("CheckLeft").GetComponent<BoxCollider2D>();
         checkRight = GameObject.Find("CheckRight").GetComponent<BoxCollider2D>();
+        StartCoroutine(DelayEnablePlayer());
     }
 
     // Update is called once per frame
@@ -37,6 +38,12 @@ public class PlayerMovement : MonoBehaviour
         {
             GetMove();
         }
+    }
+
+    private IEnumerator DelayEnablePlayer()
+    {
+        yield return null;
+        SetDisabled(false);
     }
 
     public void SetDisabled(bool tOrF)

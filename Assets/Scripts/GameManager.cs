@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image swordBrokenIcon;
 
     [SerializeField] GameObject diedScreen;
+    [SerializeField] float restartDelay = 1f;
 
     private SceneRandomizer sceneRandomizer;
 
@@ -93,9 +94,16 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("GAME OVER");
         PlaySound(youDiedSound);
         //Instantiate(diedScreen, transform.position, Quaternion.identity);
         DisablePlayer();
+        StartCoroutine(DelayCanRestart());
+    }
+
+    private IEnumerator DelayCanRestart()
+    {
+        yield return new WaitForSeconds(restartDelay);
         canRestart = true;
     }
 
@@ -110,6 +118,12 @@ public class GameManager : MonoBehaviour
             GainCoins("Sword");
             SetHasSword(false); // TODO add "+coins" on screen where sword disappears
         }
+        StartCoroutine(DelayCanAdvance());
+    }
+
+    private IEnumerator DelayCanAdvance()
+    {
+        yield return new WaitForSeconds(restartDelay);
         canAdvance = true;
     }
 
