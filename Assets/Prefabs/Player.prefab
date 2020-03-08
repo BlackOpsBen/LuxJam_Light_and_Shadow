@@ -554,3 +554,5 @@ MonoBehaviour:
     type: 3}
   enemyTouchSound: {fileID: 1323706579044135770, guid: 876ddee6c1cb96842a513529b1100ac1,
     type: 3}
+  errorSound: {fileID: 1323706579044135770, guid: a546d06c0cfaf8245b6fa76736e0bba0,
+    type: 3}

@@ -9,6 +9,7 @@ public class Touch : MonoBehaviour
     [SerializeField] GameObject swordFoundSound;
     [SerializeField] GameObject attackSound;
     [SerializeField] GameObject enemyTouchSound;
+    [SerializeField] GameObject errorSound;
 
     private Health health;
 
@@ -42,17 +43,24 @@ public class Touch : MonoBehaviour
         }
         else if (collision.CompareTag("Collectible"))
         {
-            Debug.Log("You found a collectible!");
             health.gameManager.PlaySound(collectibleSound);
             Destroy(collision.gameObject);
             health.gameManager.GainCoins("Collectible");
         }
         else if (collision.CompareTag("Sword"))
         {
-            Debug.Log("You found a sword!");
-            health.gameManager.PlaySound(swordFoundSound);
-            health.gameManager.SetHasSword(true);
-            Destroy(collision.gameObject);
+            if (!health.gameManager.GetHasSword())
+            {
+                Debug.Log("You found a sword!");
+                health.gameManager.PlaySound(swordFoundSound);
+                health.gameManager.SetHasSword(true);
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                Debug.Log("You already have a sword. You can't carry any more.");
+                Instantiate(errorSound, transform.position, Quaternion.identity);
+            }
         }
     }
 }

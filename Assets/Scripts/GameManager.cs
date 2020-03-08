@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject diedScreen;
+    [SerializeField] GameObject lootScreen;
     [SerializeField] float restartDelay = 1.5f;
 
     [SerializeField] GameObject prompt;
@@ -105,6 +106,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DelayCanRestart()
     {
+        yield return new WaitForSeconds(restartDelay);
+        Instantiate(lootScreen, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(restartDelay);
         canRestart = true;
         Instantiate(prompt, transform.position, Quaternion.identity);
@@ -219,6 +222,11 @@ public class GameManager : MonoBehaviour
         }
         coins += Mathf.RoundToInt(amount * coinMultiplier);
         coinCounter.text = coins.ToString();
+    }
+
+    public int GetCoinCount()
+    {
+        return coins;
     }
 
     public void ToggleSplashMode()

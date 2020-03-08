@@ -8,6 +8,8 @@ public class Illuminate : MonoBehaviour
     [SerializeField] GameObject igniteSound;
     [SerializeField] GameObject burnoutSound;
     [SerializeField] AudioSource flameSound;
+    [SerializeField] GameObject eerieSound;
+    private bool playedEerieSound = false;
 
     [SerializeField] Image torchSprite;
     [SerializeField] RectTransform fuelMeterFill;
@@ -31,6 +33,14 @@ public class Illuminate : MonoBehaviour
     {
         GetUseTorch();
         UpdateFuelMeter();
+        if (!playedEerieSound)
+        {
+            if (!(fuel > float.Epsilon))
+            {
+                Instantiate(eerieSound, transform.position, Quaternion.identity);
+                playedEerieSound = true;
+            }
+        }
     }
 
     private void GetUseTorch()
