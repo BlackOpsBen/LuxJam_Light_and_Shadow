@@ -754,6 +754,10 @@ MonoBehaviour:
     type: 3}
   swordIcon: {fileID: 6735955788840785925}
   swordBrokenIcon: {fileID: 8642354701087587493}
+  bonusCoinsSword: {fileID: 1681316483921447235, guid: ca1d6b9322294c74b9c3374dfadac306,
+    type: 3}
+  bonusCoinsFuel: {fileID: 1681316483921447235, guid: dfdca1d6a794b0b4090369f8ebba08ae,
+    type: 3}
   victoryScreen: {fileID: 3783718293558732692, guid: 5941980c22870b54c9422924673e25da,
     type: 3}
   diedScreen: {fileID: 3783718293558732692, guid: c781342b64feaab43bc262f36c383b00,

@@ -51,14 +51,12 @@ public class Touch : MonoBehaviour
         {
             if (!health.gameManager.GetHasSword())
             {
-                Debug.Log("You found a sword!");
                 health.gameManager.PlaySound(swordFoundSound);
                 health.gameManager.SetHasSword(true);
                 Destroy(collision.gameObject);
             }
             else
             {
-                Debug.Log("You already have a sword. You can't carry any more.");
                 Instantiate(errorSound, transform.position, Quaternion.identity);
             }
         }

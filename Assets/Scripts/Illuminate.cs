@@ -88,8 +88,17 @@ public class Illuminate : MonoBehaviour
 
     private void UpdateFuelMeter()
     {
-        fuelMeterCurrentSize = fuel * fuelMeterMaxSize / maxFuel;
-        fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
+        if (!disabled)
+        {
+            fuelMeterCurrentSize = fuel * fuelMeterMaxSize / maxFuel;
+            fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
+        }
+        else
+        {
+            fuelMeterCurrentSize = 0f;
+            fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
+        }
+        
     }
 
     public void ResetFuel()

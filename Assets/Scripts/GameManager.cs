@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Image swordIcon;
     [SerializeField] Image swordBrokenIcon;
+    [SerializeField] GameObject bonusCoinsSword;
+
+    [SerializeField] GameObject bonusCoinsFuel;
 
     [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject diedScreen;
@@ -212,9 +215,13 @@ public class GameManager : MonoBehaviour
                 break;
             case "Fuel":
                 amount = fuelCoinAmount * Mathf.RoundToInt(illuminate.GetRemainingFuel()*100);
+                GameObject bonusTextFuel = Instantiate(bonusCoinsFuel, transform.position, Quaternion.identity);
+                bonusTextFuel.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString();
                 break;
             case "Sword":
                 amount = swordCoinAmount;
+                GameObject bonusTextSword = Instantiate(bonusCoinsSword, transform.position, Quaternion.identity);
+                bonusTextSword.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString();
                 break;
             default:
                 Debug.LogWarning("Invalid coin amount/source");
