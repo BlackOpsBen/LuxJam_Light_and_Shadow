@@ -39,6 +39,9 @@ public class Illuminate : MonoBehaviour
             {
                 Instantiate(eerieSound, transform.position, Quaternion.identity);
                 playedEerieSound = true;
+                Debug.Log("Empty fuel meter");
+                fuelMeterCurrentSize = 0f;
+                fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
             }
         }
     }
@@ -50,7 +53,8 @@ public class Illuminate : MonoBehaviour
             if (fuel > float.Epsilon && Input.GetButtonDown("Light"))
             {
                 PlaySound(igniteSound);
-                fuel -= fuelLightCost;
+                fuel = Mathf.Clamp(fuel - fuelLightCost, 0f, maxFuel);
+                darkness.SetActive(false);
             }
             if (fuel > float.Epsilon && Input.GetButton("Light"))
             {
@@ -59,9 +63,8 @@ public class Illuminate : MonoBehaviour
                     flameSound.Play();
                 }
                 isLit = true;
-                darkness.SetActive(false);
                 torchSprite.enabled = true;
-                fuel -= fuelConsumptionRate * Time.deltaTime;
+                fuel = Mathf.Clamp(fuel - fuelConsumptionRate * Time.deltaTime, 0f, maxFuel);
             }
             else
             {
@@ -104,6 +107,7 @@ public class Illuminate : MonoBehaviour
     public void ResetFuel()
     {
         fuel = maxFuel;
+        playedEerieSound = false;
     }
 
     public float GetRemainingFuel()
