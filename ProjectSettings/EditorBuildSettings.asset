@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/B01.unity
     guid: dea0940ceab391540bec04505d21cc04
   - enabled: 1
+    path: Assets/Scenes/B02.unity
+    guid: 4e8673091fafade458cd99c7c519b4cf
+  - enabled: 1
+    path: Assets/Scenes/B03.unity
+    guid: 8c794a96d9041d44d9ef9c18b0532867
+  - enabled: 1
     path: Assets/Scenes/001.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -23,4 +29,55 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/004.unity
     guid: 866d0e9c802548d4b810f4c2b3c7ae4c
+  - enabled: 1
+    path: Assets/Scenes/005.unity
+    guid: a5dbe5ce7db3b7846bf35c39d44aac8d
+  - enabled: 1
+    path: Assets/Scenes/006.unity
+    guid: ac535fc82e5977043a2fa771234b36f4
+  - enabled: 1
+    path: Assets/Scenes/007.unity
+    guid: fd7b6bebf5ca382418049499f68a5390
+  - enabled: 1
+    path: Assets/Scenes/008.unity
+    guid: 897a330d7b8fecb4b813cbc7b6da6396
+  - enabled: 1
+    path: Assets/Scenes/009.unity
+    guid: 2012f980c11d4b8499b4c9dbcd1e3d47
+  - enabled: 1
+    path: Assets/Scenes/010.unity
+    guid: f28ecad021d385c408c4da186dbe4dbc
+  - enabled: 1
+    path: Assets/Scenes/011.unity
+    guid: 66532674dea05e14b89ca2a3bc6afb86
+  - enabled: 1
+    path: Assets/Scenes/012.unity
+    guid: 4297b6d1cdf79cf41b5b7bea5768f492
+  - enabled: 1
+    path: Assets/Scenes/013.unity
+    guid: 85b671c41507aa14882eb4e8ad53647d
+  - enabled: 1
+    path: Assets/Scenes/014.unity
+    guid: 312580a3fae5e234a84aa4e3fa67729c
+  - enabled: 1
+    path: Assets/Scenes/015.unity
+    guid: 8ca5f2d995a132c4daf9328207b53839
+  - enabled: 1
+    path: Assets/Scenes/016.unity
+    guid: 273f2bf6ac532ef4ab8e0aaf9e3fca4a
+  - enabled: 1
+    path: Assets/Scenes/017.unity
+    guid: 53d58a08311321e4cb709be0fbc11c59
+  - enabled: 1
+    path: Assets/Scenes/018.unity
+    guid: c32d04065a2fd834386e8c6cd654963a
+  - enabled: 1
+    path: Assets/Scenes/019.unity
+    guid: a3253298fa43e7d47a0c96277cb32822
+  - enabled: 1
+    path: Assets/Scenes/020.unity
+    guid: 37adad560521d0e46b0b7a0fd7ef3959
+  - enabled: 1
+    path: Assets/Scenes/021.unity
+    guid: 42a1eb4388ee09648b44b8a1f8914b98
   m_configObjects: {}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5375046383713724524}
   - component: {fileID: 3817754567192820722}
   - component: {fileID: 3190370189353797700}
+  - component: {fileID: 8938715085863819044}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -73,6 +74,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDeathSound: {fileID: 1323706579044135770, guid: cf0152228c83b444d9f0480b683b678e,
     type: 3}
+  isBeingKilled: 0
+--- !u!114 &8938715085863819044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387348884355202919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56ce0c204940474a8256d65b012f47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4302077060346511641
 GameObject:
   m_ObjectHideFlags: 0
