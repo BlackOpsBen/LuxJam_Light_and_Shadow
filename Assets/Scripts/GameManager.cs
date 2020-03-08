@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
     {
         health.ResetHealth(true);
         currentHealth = 3;
+        SetHasSword(false);
         ResetCoins();
         //SceneManager.LoadScene(0); // Instead of loading the first scene, switching to loading a random scene starting the game over.
         sceneRandomizer.InitializeSceneList();
