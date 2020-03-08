@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image swordIcon;
     [SerializeField] Image swordBrokenIcon;
 
+    [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject diedScreen;
     [SerializeField] float restartDelay = 1f;
+
+    
 
     private SceneRandomizer sceneRandomizer;
 
@@ -94,9 +97,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("GAME OVER");
         PlaySound(youDiedSound);
-        //Instantiate(diedScreen, transform.position, Quaternion.identity);
+        Instantiate(diedScreen, transform.position, Quaternion.identity);
         DisablePlayer();
         StartCoroutine(DelayCanRestart());
     }
@@ -110,6 +112,7 @@ public class GameManager : MonoBehaviour
     public void LevelComplete()
     {
         PlaySound(winSound);
+        Instantiate(victoryScreen, transform.position, Quaternion.identity);
         Debug.Log("Level complete! PRESS ANY KEY TO CONTINUE"); // TODO make this happen in UI, not console.
         DisablePlayer();
         GainCoins("Fuel");

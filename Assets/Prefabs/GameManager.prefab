@@ -754,8 +754,11 @@ MonoBehaviour:
     type: 3}
   swordIcon: {fileID: 6735955788840785925}
   swordBrokenIcon: {fileID: 8642354701087587493}
+  victoryScreen: {fileID: 3783718293558732692, guid: 5941980c22870b54c9422924673e25da,
+    type: 3}
   diedScreen: {fileID: 3783718293558732692, guid: c781342b64feaab43bc262f36c383b00,
     type: 3}
+  restartDelay: 1
   coinCounter: {fileID: 6786191188651857914}
 --- !u!114 &7592008997262284415
 MonoBehaviour:
