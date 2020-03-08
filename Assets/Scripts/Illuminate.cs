@@ -18,6 +18,7 @@ public class Illuminate : MonoBehaviour
     private float maxFuel = 3f;
     private float fuel = 3f;
     private float fuelConsumptionRate = 1f;
+    private float fuelLightCost = 0.1f;
     private bool disabled = false;
     private bool isLit = false;
 
@@ -39,6 +40,7 @@ public class Illuminate : MonoBehaviour
             if (fuel > float.Epsilon && Input.GetButtonDown("Light"))
             {
                 PlaySound(igniteSound);
+                fuel -= fuelLightCost;
             }
             if (fuel > float.Epsilon && Input.GetButton("Light"))
             {

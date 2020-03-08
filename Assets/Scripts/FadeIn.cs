@@ -35,7 +35,6 @@ public class FadeIn : MonoBehaviour
         while (alpha < maxAlpha)
         {
             SetAlpha(alpha);
-            Debug.Log("Alpha: " + alpha);
             alpha += maxAlpha * 0.5f * Time.deltaTime;
             yield return null;
         }
