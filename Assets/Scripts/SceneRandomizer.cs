@@ -10,7 +10,6 @@ public class SceneRandomizer : MonoBehaviour
     private void Start()
     {
         InitializeSceneList();
-        Debug.Log("Scene count: " + SceneManager.sceneCountInBuildSettings);
     }
 
     public void InitializeSceneList()

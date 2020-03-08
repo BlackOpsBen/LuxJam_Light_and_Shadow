@@ -120,13 +120,12 @@ public class GameManager : MonoBehaviour
     {
         PlaySound(winSound);
         Instantiate(victoryScreen, transform.position, Quaternion.identity);
-        Debug.Log("Level complete! PRESS ANY KEY TO CONTINUE"); // TODO make this happen in UI, not console.
         DisablePlayer();
         GainCoins("Fuel");
         if (hasSword)
         {
             GainCoins("Sword");
-            SetHasSword(false); // TODO add "+coins" on screen where sword disappears
+            SetHasSword(false);
         }
         StartCoroutine(DelayCanAdvance());
     }

@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HitWall()
     {
-        Debug.LogWarning("You hit a wall!"); // TODO give player feedback besides just losing a heart
         health.LoseHealth();
     }
 
@@ -96,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
                     eligibleDirections[3] = false;
                     break;
                 default:
-                    Debug.LogError("Invalid Checker Collision Detection");
+                    Debug.LogWarning("Invalid Checker Collision Detection");
                     break;
             }
         }
@@ -119,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
                 eligibleDirections[3] = true;
                 break;
             default:
-                Debug.LogError("Invalid Checker Collision Reset");
+                Debug.LogWarning("Invalid Checker Collision Reset");
                 break;
         }
     }

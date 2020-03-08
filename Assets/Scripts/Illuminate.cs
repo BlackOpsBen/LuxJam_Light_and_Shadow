@@ -39,7 +39,6 @@ public class Illuminate : MonoBehaviour
             {
                 Instantiate(eerieSound, transform.position, Quaternion.identity);
                 playedEerieSound = true;
-                Debug.Log("Empty fuel meter");
                 fuelMeterCurrentSize = 0f;
                 fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
             }
