@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     private int enemyCoinAmount = 50;
     private int swordCoinAmount = 10;
     private int fuelCoinAmount = 1;
+    private float coinMultiplierBase = 1f;
+    private float coinMultiplier = 1f;
+    private float coinMultiplierIncrease = 0.1f;
 
     private PlayerMovement player;
     private bool canRestart = false;
@@ -114,6 +117,7 @@ public class GameManager : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Instead of loading the first scene, switching to loading a random scene starting the game over.
         SceneManager.LoadScene(sceneRandomizer.GetRandomSceneIndex());
         yield return null;
+        coinMultiplier += coinMultiplierIncrease;
         PlaySound(startSound);
         GetPlayer();
         illuminate.ResetFuel();
@@ -129,6 +133,7 @@ public class GameManager : MonoBehaviour
         sceneRandomizer.InitializeSceneList();
         SceneManager.LoadScene(sceneRandomizer.GetRandomSceneIndex());
         yield return null;
+        coinMultiplier = coinMultiplierBase;
         PlaySound(startSound);
         GetPlayer();
         illuminate.ResetFuel();
@@ -183,7 +188,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("Invalid coin amount/source");
                 break;
         }
-        coins += amount;
+        coins += Mathf.RoundToInt(amount * coinMultiplier);
         coinCounter.text = coins.ToString();
     }
 
