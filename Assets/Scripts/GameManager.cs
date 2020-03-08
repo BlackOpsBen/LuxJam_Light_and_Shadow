@@ -69,6 +69,12 @@ public class GameManager : MonoBehaviour
     {
         GetAdvanceLevel();
         GetRestartGame();
+
+        // Cheat to beat level
+        if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.L))
+        {
+            LevelComplete();
+        }
     }
 
     private void GetAdvanceLevel()
