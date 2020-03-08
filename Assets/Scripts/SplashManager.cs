@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SplashManager : MonoBehaviour
 {
-    private GameManager gameManager;
     private SceneRandomizer sceneRandomizer;
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        sceneRandomizer = gameManager.GetComponent<SceneRandomizer>();
+        sceneRandomizer = FindObjectOfType<SceneRandomizer>();
     }
 
     private void Update()

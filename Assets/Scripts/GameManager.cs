@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        sceneRandomizer = GetComponent<SceneRandomizer>();
+        sceneRandomizer = FindObjectOfType<SceneRandomizer>();
         illuminate = GetComponent<Illuminate>();
         GetPlayer();
         PlaySound(startSound);
@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         health.ResetHealth(true);
         currentHealth = 3;
+        ResetCoins();
         //SceneManager.LoadScene(0); // Instead of loading the first scene, switching to loading a random scene starting the game over.
         sceneRandomizer.InitializeSceneList();
         SceneManager.LoadScene(sceneRandomizer.GetRandomSceneIndex());
@@ -132,6 +133,12 @@ public class GameManager : MonoBehaviour
         GetPlayer();
         illuminate.ResetFuel();
         illuminate.SetDisabled(false);
+    }
+
+    private void ResetCoins()
+    {
+        coins = 0;
+        coinCounter.text = coins.ToString();
     }
 
     public void PlaySound(GameObject sound)

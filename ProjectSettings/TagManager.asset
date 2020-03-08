@@ -13,6 +13,7 @@ TagManager:
   - Darkness
   - Collectible
   - Sword
+  - RandomSceneManager
   layers:
   - Default
   - TransparentFX

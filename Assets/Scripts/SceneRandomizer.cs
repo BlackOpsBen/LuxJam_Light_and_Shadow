@@ -24,6 +24,10 @@ public class SceneRandomizer : MonoBehaviour
 
     public int GetRandomSceneIndex()
     {
+        if (SceneBuildNums.Count == 0)
+        {
+            InitializeSceneList();
+        }
         int index = Random.Range(0, SceneBuildNums.Count);
         int rand = SceneBuildNums[index];
         SceneBuildNums.RemoveAt(index);
