@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25d3e102f8dcaa4f8bf6251858bf263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputDelay: 2
+  prompt: {fileID: 6337130032985674000, guid: 6372193a5f0cc8d4daf86e70943054a5, type: 3}

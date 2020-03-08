@@ -759,6 +759,7 @@ MonoBehaviour:
   diedScreen: {fileID: 3783718293558732692, guid: c781342b64feaab43bc262f36c383b00,
     type: 3}
   restartDelay: 1
+  prompt: {fileID: 6337130032985674000, guid: 6372193a5f0cc8d4daf86e70943054a5, type: 3}
   coinCounter: {fileID: 6786191188651857914}
 --- !u!114 &7592008997262284415
 MonoBehaviour:

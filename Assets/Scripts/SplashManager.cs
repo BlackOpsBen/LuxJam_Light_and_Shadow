@@ -8,6 +8,7 @@ public class SplashManager : MonoBehaviour
     private SceneRandomizer sceneRandomizer;
     private bool canStart = false;
     [SerializeField] float inputDelay = 2f;
+    [SerializeField] GameObject prompt;
 
     private void Start()
     {
@@ -20,6 +21,8 @@ public class SplashManager : MonoBehaviour
     {
         yield return new WaitForSeconds(inputDelay);
         canStart = true;
+        yield return new WaitForSeconds(1f);
+        Instantiate(prompt, transform.position, Quaternion.identity);
     }
 
     private void Update()

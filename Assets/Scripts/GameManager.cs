@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject diedScreen;
-    [SerializeField] float restartDelay = 1f;
+    [SerializeField] float restartDelay = 1.5f;
 
-    
+    [SerializeField] GameObject prompt;
 
     private SceneRandomizer sceneRandomizer;
 
@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(restartDelay);
         canRestart = true;
+        Instantiate(prompt, transform.position, Quaternion.identity);
     }
 
     public void LevelComplete()
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(restartDelay);
         canAdvance = true;
+        Instantiate(prompt, transform.position, Quaternion.identity);
     }
 
     public void DisablePlayer()
