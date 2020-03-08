@@ -199,7 +199,11 @@ public class GameManager : MonoBehaviour
     {
         SetHasSword(false);
         swordBrokenIcon.enabled = true;
+        float currentMultiplier = coinMultiplier;
         yield return new WaitForSeconds(0.5f);
+        GameObject killLoot = Instantiate(bonusCoinsSword, transform.position, Quaternion.identity);
+        killLoot.GetComponentInChildren<TextMeshProUGUI>().text = "+" + Mathf.RoundToInt(enemyCoinAmount * currentMultiplier).ToString();
+        GainCoins("Enemy");
         swordBrokenIcon.enabled = false;
     }
 

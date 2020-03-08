@@ -32,7 +32,7 @@ public class Touch : MonoBehaviour
                 collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
                 Destroy(collision.gameObject);
                 StartCoroutine(health.gameManager.UseSword());
-                health.gameManager.GainCoins("Enemy");
+                //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
             }
             else
             {
