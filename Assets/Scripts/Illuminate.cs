@@ -53,16 +53,25 @@ public class Illuminate : MonoBehaviour
             }
             else
             {
-                if (isLit)
-                {
-                    PlaySound(burnoutSound);
-                    flameSound.Stop();
-                }
-                isLit = false;
-                darkness.SetActive(true);
-                torchSprite.enabled = false;
+                PutOutTorch();
             }
         }
+        else
+        {
+            PutOutTorch();
+        }
+    }
+
+    private void PutOutTorch()
+    {
+        if (isLit)
+        {
+            PlaySound(burnoutSound);
+            flameSound.Stop();
+        }
+        isLit = false;
+        darkness.SetActive(true);
+        torchSprite.enabled = false;
     }
 
     private void UpdateFuelMeter()
