@@ -10,6 +10,9 @@ public class Leaderboard : MonoBehaviour
     const string webURL = "http://dreamlo.com/lb/";
 
     public Highscore[] highScoresList;
+    public Highscore singleHighScore;
+    public bool playerExists;
+
     static Leaderboard instance;
     DisplayScores highscoresDisplay;
 
@@ -39,9 +42,9 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
-    public void GetScores()
+    public static void GetScores()
     {
-        StartCoroutine(DownloadScores());
+        instance.StartCoroutine(instance.DownloadScores());
     }
 
     IEnumerator DownloadScores()
@@ -71,8 +74,46 @@ public class Leaderboard : MonoBehaviour
             string[] entryInfo = entries[i].Split(new char[] {'|'});
             string username = entryInfo[0];
             int score = int.Parse(entryInfo[1]);
-            highScoresList[i] = new Highscore(username, score);
+            int rank = int.Parse(entryInfo[5]);
+            highScoresList[i] = new Highscore(username, score, rank);
             print(highScoresList[i].username + ": " + highScoresList[i].score);
+        }
+    }
+
+    void FormatSingleScore(string textStream)
+    {
+        string entry = textStream;
+        singleHighScore = new Highscore();
+
+        string[] entryInfo = entry.Split(new char[] { '|' });
+        string username = entryInfo[0];
+        int score = int.Parse(entryInfo[1]);
+        int rank = int.Parse(entryInfo[5]);
+        singleHighScore = new Highscore(username, score, rank);
+        print(singleHighScore.rank + ". " + singleHighScore.username + ": " + singleHighScore.score);
+    }
+
+    public static bool CheckListForName(string username)
+    {
+        instance.StartCoroutine(instance.DownloadPlayer(username));
+        return instance.playerExists;
+    }
+
+    IEnumerator DownloadPlayer(string username)
+    {
+        WWW www = new WWW(webURL + publicCode + "/pipe-get/" + username);
+        yield return www;
+
+        if (string.IsNullOrEmpty(www.error))
+        {
+            FormatSingleScore(www.text);
+            playerExists = true;
+            //highscoresDisplay.OnScoresDownloaded(highScoresList);
+        }
+        else
+        {
+            playerExists = false;
+            print("Error downloading: " + www.error + ". Player doesn't exist yet?");
         }
     }
 }
@@ -81,10 +122,12 @@ public struct Highscore
 {
     public string username;
     public int score;
+    public int rank;
 
-    public Highscore(string _username, int _score)
+    public Highscore(string _username, int _score, int _rank)
     {
         username = _username;
         score = _score;
+        rank = _rank;
     }
 }
