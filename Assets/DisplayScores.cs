@@ -10,7 +10,16 @@ public class DisplayScores : MonoBehaviour
     public TextMeshProUGUI[] scoreTexts;
     Leaderboard highscoreManager;
 
+    public TextMeshProUGUI secondaryHeader;
+    public TextMeshProUGUI yourUsername;
+    public TextMeshProUGUI yourScore;
+
     void Start()
+    {
+        GetTop10Scores();
+    }
+
+    private void GetTop10Scores()
     {
         for (int i = 0; i < usernameTexts.Length; i++)
         {
