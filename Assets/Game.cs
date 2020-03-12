@@ -16,9 +16,19 @@ public class Game : MonoBehaviour
             username = GetUsername();
             score = GetScore();
 
-            Leaderboard.GetScores();
+            Leaderboard.GoGetScores();
 
+            // Need to ensure this is set AFTER the get
             usernameExists = Leaderboard.CheckListForName(username);
+
+            if (!usernameExists)
+            {
+                Leaderboard.AddNewScore(username, score);
+                if (Leaderboard.GetSingleHighscore().rank == 1)
+                {
+
+                }
+            }
 
             Leaderboard.AddNewScore(username, score);
         }

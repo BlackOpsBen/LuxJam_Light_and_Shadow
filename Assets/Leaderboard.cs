@@ -42,7 +42,11 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
-    public static void GetScores()
+    public static void GoGetScores()
+    {
+        instance.GetScores();
+    }
+    public void GetScores()
     {
         instance.StartCoroutine(instance.DownloadScores());
     }
@@ -115,6 +119,11 @@ public class Leaderboard : MonoBehaviour
             playerExists = false;
             print("Error downloading: " + www.error + ". Player doesn't exist yet?");
         }
+    }
+
+    public static Highscore GetSingleHighscore()
+    {
+        return instance.singleHighScore;
     }
 }
 
