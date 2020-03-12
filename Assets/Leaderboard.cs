@@ -9,26 +9,47 @@ public class Leaderboard : MonoBehaviour
     const string publicCode = "5e67d122fe232612b89ba932";
     const string webURL = "http://dreamlo.com/lb/";
 
-    public Highscore[] highScoresList;
-    public Highscore singleHighScore;
-    public bool playerExists;
+    private Highscore[] highscoreList;
+    private Highscore singleHighscore;
+
+    private bool isPreviousScore;
 
     static Leaderboard instance;
-    DisplayScores highscoresDisplay;
+    DisplayScores displayScores;
 
     private void Awake()
     {
         instance = this;
-        highscoresDisplay = GetComponent<DisplayScores>();
+        displayScores = GetComponent<DisplayScores>();
     }
     public static void AddNewScore(string username, int score)
     {
+        instance.isPreviousScore = true;
+        //instance.StartCoroutine(instance.DownloadPlayer(username)); // Including this inside UploadNewScore to ensure it is complete before upload.
         instance.StartCoroutine(instance.UploadNewScore(username, score));
     }
     IEnumerator UploadNewScore(string username, int score)
     {
+        #region Check for player first, and save any existing score
+        WWW wwwD = new WWW(webURL + publicCode + "/pipe-get/" + username);
+        yield return wwwD;
+
+        if (string.IsNullOrEmpty(wwwD.error))
+        {
+            FormatSingleScore(wwwD.text);
+            displayScores.SetPlayerExists(true);
+            displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+        }
+        else
+        {
+            displayScores.SetPlayerExists(false);
+            print("Error downloading: " + wwwD.error + ". Player doesn't exist yet?");
+        }
+        isPreviousScore = false;
+        #endregion
+
+        #region Then add their new score
         WWW www = new WWW(webURL + privateCode + "/add/" + WWW.EscapeURL(username) + "/" + score);
-        //UnityWebRequest www = new UnityWebRequest(webURL + privateCode + "/add/" + UnityWebRequest.EscapeURL(username) + "/" + score);
         yield return www;
 
         if (string.IsNullOrEmpty(www.error))
@@ -40,12 +61,10 @@ public class Leaderboard : MonoBehaviour
         {
             print("Error uploading: " + www.error);
         }
+        isPreviousScore = false; // TODO <- is this where I put "isPreviousScore = false;" ?
+        #endregion
     }
 
-    public static void GoGetScores()
-    {
-        instance.GetScores();
-    }
     public void GetScores()
     {
         instance.StartCoroutine(instance.DownloadScores());
@@ -54,13 +73,12 @@ public class Leaderboard : MonoBehaviour
     IEnumerator DownloadScores()
     {
         WWW www = new WWW(webURL + publicCode + "/pipe/");
-        //UnityWebRequest www = new UnityWebRequest(webURL + publicCode + "/pipe/");
         yield return www;
 
         if (string.IsNullOrEmpty(www.error))
         {
             FormatScores(www.text);
-            highscoresDisplay.OnScoresDownloaded(highScoresList);
+            displayScores.OnScoresDownloaded(highscoreList);
         }
         else
         {
@@ -71,7 +89,7 @@ public class Leaderboard : MonoBehaviour
     void FormatScores(string textStream)
     {
         string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-        highScoresList = new Highscore[entries.Length];
+        highscoreList = new Highscore[entries.Length];
 
         for (int i = 0; i < entries.Length; i++)
         {
@@ -79,52 +97,53 @@ public class Leaderboard : MonoBehaviour
             string username = entryInfo[0];
             int score = int.Parse(entryInfo[1]);
             int rank = int.Parse(entryInfo[5]);
-            highScoresList[i] = new Highscore(username, score, rank);
-            print(highScoresList[i].username + ": " + highScoresList[i].score);
+            highscoreList[i] = new Highscore(username, score, rank);
+            print(highscoreList[i].username + ": " + highscoreList[i].score);
         }
     }
 
     void FormatSingleScore(string textStream)
     {
         string entry = textStream;
-        singleHighScore = new Highscore();
+        singleHighscore = new Highscore();
 
         string[] entryInfo = entry.Split(new char[] { '|' });
         string username = entryInfo[0];
         int score = int.Parse(entryInfo[1]);
         int rank = int.Parse(entryInfo[5]);
-        singleHighScore = new Highscore(username, score, rank);
-        print(singleHighScore.rank + ". " + singleHighScore.username + ": " + singleHighScore.score);
+        singleHighscore = new Highscore(username, score, rank);
+        print(singleHighscore.rank + ". " + singleHighscore.username + ": " + singleHighscore.score);
     }
 
-    public static bool CheckListForName(string username)
-    {
-        instance.StartCoroutine(instance.DownloadPlayer(username));
-        return instance.playerExists;
-    }
+    //public static bool CheckListForName(string username)
+    //{
+    //    instance.StartCoroutine(instance.DownloadPlayer(username));
+    //    return instance.playerExists;
+    //}
 
-    IEnumerator DownloadPlayer(string username)
-    {
-        WWW www = new WWW(webURL + publicCode + "/pipe-get/" + username);
-        yield return www;
+    //IEnumerator DownloadPlayer(string username) // Including this in the Upload
+    //{
+    //    WWW wwwD = new WWW(webURL + publicCode + "/pipe-get/" + username);
+    //    yield return wwwD;
 
-        if (string.IsNullOrEmpty(www.error))
-        {
-            FormatSingleScore(www.text);
-            playerExists = true;
-            //highscoresDisplay.OnScoresDownloaded(highScoresList);
-        }
-        else
-        {
-            playerExists = false;
-            print("Error downloading: " + www.error + ". Player doesn't exist yet?");
-        }
-    }
+    //    if (string.IsNullOrEmpty(wwwD.error))
+    //    {
+    //        FormatSingleScore(wwwD.text);
+    //        displayScores.SetPlayerExists(true);
+    //        displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+    //    }
+    //    else
+    //    {
+    //        displayScores.SetPlayerExists(false);
+    //        print("Error downloading: " + wwwD.error + ". Player doesn't exist yet?");
+    //    }
+    //    isPreviousScore = false;
+    //}
 
-    public static Highscore GetSingleHighscore()
-    {
-        return instance.singleHighScore;
-    }
+    //public static Highscore GetSingleHighscore()
+    //{
+    //    return instance.singleHighScore;
+    //}
 }
 
 public struct Highscore
