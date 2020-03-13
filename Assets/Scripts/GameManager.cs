@@ -97,6 +97,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetCanRestart()
+    {
+        canRestart = true;
+        Instantiate(prompt, transform.position, Quaternion.identity);
+    }
+
     private void GetContinue()
     {
         if (canContinue && Input.anyKeyDown)
@@ -121,8 +127,14 @@ public class GameManager : MonoBehaviour
         PlaySound(youDiedSound);
         Instantiate(diedScreen, transform.position, Quaternion.identity);
         DisablePlayer();
-        //StartCoroutine(DelayCanRestart());
-        StartCoroutine(DelayCanContinue());
+        if (coins == 0)
+        {
+            StartCoroutine(DelayCanRestart());
+        }
+        else
+        {
+            StartCoroutine(DelayCanContinue());
+        }
     }
 
     private IEnumerator DelayCanContinue()
@@ -134,14 +146,14 @@ public class GameManager : MonoBehaviour
         Instantiate(prompt, transform.position, Quaternion.identity);
     }
 
-    //private IEnumerator DelayCanRestart()
-    //{
-    //    yield return new WaitForSeconds(restartDelay);
-    //    Instantiate(lootScreen, transform.position, Quaternion.identity);
-    //    yield return new WaitForSeconds(restartDelay);
-    //    canRestart = true;
-    //    Instantiate(prompt, transform.position, Quaternion.identity);
-    //}
+    private IEnumerator DelayCanRestart()
+    {
+        yield return new WaitForSeconds(restartDelay);
+        Instantiate(lootScreen, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(restartDelay);
+        canRestart = true;
+        Instantiate(prompt, transform.position, Quaternion.identity);
+    }
 
     public void LevelComplete()
     {

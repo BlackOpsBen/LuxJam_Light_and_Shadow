@@ -6,11 +6,11 @@ using TMPro;
 
 public class DisplayScores : MonoBehaviour
 {
-    private const string altHeaderTop = "- You are the mightiest in the land! -";
+    private const string altHeaderTop = "- You are the champion! -";
     private const string altHeaderNewBest = "- New personal best! -";
-    private const string altHeaderStillTop = "- You are STILL the mightiest in the land! -";
+    private const string altHeaderStillTop = "- You are STILL the champion! -";
     private const string altHeaderTiedBest = "- You tied your previous best! -";
-    private const string altHeaderOldBest = "- Try to beat your previous best! -";
+    private const string altHeaderOldBest = "- Try to beat your best score! -";
 
     [SerializeField] Color highlightColor = Color.magenta;
     [SerializeField] Color topColor = Color.yellow;

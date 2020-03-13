@@ -74,7 +74,7 @@ public class Leaderboard : MonoBehaviour
         {
             print("Error uploading: " + www.error);
         }
-        isPreviousScore = false; // TODO <- is this where I put "isPreviousScore = false;" ?
+        isPreviousScore = false;
         #endregion
     }
 
@@ -115,8 +115,8 @@ public class Leaderboard : MonoBehaviour
             {
                 print("Existing player found: " + username);
                 FormatSingleScore(wwwD.text);
-                displayScores.SetPlayerExists(true);
                 displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+                displayScores.SetPlayerExists(true);
             }
             else
             {
