@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     private PlayerMovement player;
     private bool canRestart = false;
     private bool canAdvance = false;
+    private bool canContinue = false;
     private Health health;
     private int currentHealth = 3;
     private Illuminate illuminate;
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         GetAdvanceLevel();
         GetRestartGame();
+        GetContinue();
 
         // Cheat to beat level
         if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.L))
@@ -95,6 +97,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GetContinue()
+    {
+        if (canContinue && Input.anyKeyDown)
+        {
+            canContinue = false;
+            StartCoroutine(Continue());
+        }
+    }
+
     public void LoseHealth()
     {
         currentHealth--;
@@ -110,17 +121,27 @@ public class GameManager : MonoBehaviour
         PlaySound(youDiedSound);
         Instantiate(diedScreen, transform.position, Quaternion.identity);
         DisablePlayer();
-        StartCoroutine(DelayCanRestart());
+        //StartCoroutine(DelayCanRestart());
+        StartCoroutine(DelayCanContinue());
     }
 
-    private IEnumerator DelayCanRestart()
+    private IEnumerator DelayCanContinue()
     {
         yield return new WaitForSeconds(restartDelay);
         Instantiate(lootScreen, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(restartDelay);
-        canRestart = true;
+        canContinue = true;
         Instantiate(prompt, transform.position, Quaternion.identity);
     }
+
+    //private IEnumerator DelayCanRestart()
+    //{
+    //    yield return new WaitForSeconds(restartDelay);
+    //    Instantiate(lootScreen, transform.position, Quaternion.identity);
+    //    yield return new WaitForSeconds(restartDelay);
+    //    canRestart = true;
+    //    Instantiate(prompt, transform.position, Quaternion.identity);
+    //}
 
     public void LevelComplete()
     {
@@ -176,6 +197,13 @@ public class GameManager : MonoBehaviour
         GetPlayer();
         illuminate.ResetFuel();
         illuminate.SetDisabled(false);
+    }
+
+    private IEnumerator Continue()
+    {
+        SceneManager.LoadScene("Leaderboard");
+        yield return null;
+        PlaySound(winSound);
     }
 
     private void ResetCoins()
@@ -249,5 +277,11 @@ public class GameManager : MonoBehaviour
     public void ToggleSplashMode()
     {
         isSplashMode = !isSplashMode;
+    }
+
+    public void SubmitScore(string username)
+    {
+        int score = coins;
+        Leaderboard.AddNewScore(username, score);
     }
 }

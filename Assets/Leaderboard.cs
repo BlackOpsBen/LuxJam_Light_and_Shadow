@@ -83,6 +83,10 @@ public class Leaderboard : MonoBehaviour
         instance.StartCoroutine(instance.DownloadScores());
         instance.StartCoroutine(instance.RedownloadSingleScore(username));
     }
+    public static void OnlyGetScores()
+    {
+        instance.StartCoroutine(instance.DownloadScores());
+    }
 
     IEnumerator DownloadScores()
     {
