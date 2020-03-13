@@ -24,6 +24,10 @@ public class Leaderboard : MonoBehaviour
     }
     public static void AddNewScore(string username, int score)
     {
+        instance.displayScores.ClearSecondaryFields();
+        instance.displayScores.ResetColors();
+        instance.displayScores.ResetHighscores();
+        instance.displayScores.SetThisRunsScore(score);
         instance.isPreviousScore = true;
         //instance.StartCoroutine(instance.DownloadPlayer(username)); // Including this inside UploadNewScore to ensure it is complete before upload.
         instance.StartCoroutine(instance.UploadNewScore(username, score));
@@ -36,16 +40,25 @@ public class Leaderboard : MonoBehaviour
 
         if (string.IsNullOrEmpty(wwwD.error))
         {
-            FormatSingleScore(wwwD.text);
-            displayScores.SetPlayerExists(true);
-            displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+            if (!string.IsNullOrEmpty(wwwD.text))
+            {
+                print("Existing player found: " + username);
+                FormatSingleScore(wwwD.text);
+                displayScores.SetPlayerExists(true);
+                displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+            }
+            else
+            {
+                print("Player " + username + " doesn't exist yet.");
+                displayScores.SetPlayerExists(false);
+            }
+            isPreviousScore = false;
         }
         else
         {
-            displayScores.SetPlayerExists(false);
-            print("Error downloading: " + wwwD.error + ". Player doesn't exist yet?");
+            print("Error downloading: " + wwwD.error);
         }
-        isPreviousScore = false;
+
         #endregion
 
         #region Then add their new score
@@ -55,7 +68,7 @@ public class Leaderboard : MonoBehaviour
         if (string.IsNullOrEmpty(www.error))
         {
             print("Upload Successful");
-            GetScores();
+            GetScores(username);
         }
         else
         {
@@ -65,9 +78,10 @@ public class Leaderboard : MonoBehaviour
         #endregion
     }
 
-    public void GetScores()
+    public void GetScores(string username)
     {
         instance.StartCoroutine(instance.DownloadScores());
+        instance.StartCoroutine(instance.RedownloadSingleScore(username));
     }
 
     IEnumerator DownloadScores()
@@ -86,6 +100,30 @@ public class Leaderboard : MonoBehaviour
         }
     }
 
+    IEnumerator RedownloadSingleScore(string username)
+    {
+        WWW wwwD = new WWW(webURL + publicCode + "/pipe-get/" + username);
+        yield return wwwD;
+
+        if (string.IsNullOrEmpty(wwwD.error))
+        {
+            if (!string.IsNullOrEmpty(wwwD.text))
+            {
+                print("Existing player found: " + username);
+                FormatSingleScore(wwwD.text);
+                displayScores.SetPlayerExists(true);
+                displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
+            }
+            else
+            {
+                Debug.LogError("Redownload didn't find the player! Did scores get cleared?");
+                //print("Player " + username + " doesn't exist yet.");
+                //displayScores.SetPlayerExists(false);
+            }
+            isPreviousScore = true;
+        }
+    }
+
     void FormatScores(string textStream)
     {
         string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -98,21 +136,19 @@ public class Leaderboard : MonoBehaviour
             int score = int.Parse(entryInfo[1]);
             int rank = int.Parse(entryInfo[5]);
             highscoreList[i] = new Highscore(username, score, rank);
-            print(highscoreList[i].username + ": " + highscoreList[i].score);
         }
     }
 
     void FormatSingleScore(string textStream)
     {
         string entry = textStream;
-        singleHighscore = new Highscore();
+        //singleHighscore = new Highscore();
 
         string[] entryInfo = entry.Split(new char[] { '|' });
         string username = entryInfo[0];
         int score = int.Parse(entryInfo[1]);
         int rank = int.Parse(entryInfo[5]);
         singleHighscore = new Highscore(username, score, rank);
-        print(singleHighscore.rank + ". " + singleHighscore.username + ": " + singleHighscore.score);
     }
 
     //public static bool CheckListForName(string username)

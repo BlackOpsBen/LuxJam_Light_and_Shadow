@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public string username;
-    public int score;
+    private string username;
+    private int score;
     
     void Update()
     {
@@ -20,20 +20,35 @@ public class Game : MonoBehaviour
     public string GetUsername()
     {
         // Replace this temp code for randomly selecting name
-        string[] names = { "Ben", "Daniel", "Jordon" };
-        // Random fake name:
-        //string alphabet = "qwertyuiopasdfghjklzxcvbnm";
-        //for (int i = 0; i < Random.Range(5,10); i++)
-        //{
-        //    username += alphabet[Random.Range(0, alphabet.Length)];
-        //}
 
-        return names[Random.Range(0, names.Length)];
+        int whichType = Random.Range(0, 2);
+
+        // Type 0
+        string[] names = { "Ben", "Daniel", "Jordon" };
+
+        // Type 1
+        string alphabet = "qwertyuiopasdfghjklzxcvbnm";
+        string randomName = "";
+
+        if (whichType == 0)
+        {
+            return names[Random.Range(0, names.Length)];
+        }
+        else
+        {
+            for (int i = 0; i < Random.Range(5, 10); i++)
+            {
+                randomName += alphabet[Random.Range(0, alphabet.Length)];
+            }
+            return randomName;
+        }
     }
 
     public int GetScore()
     {
         // Replace this temp code for randomly generating score
-        return Random.Range(0, 2500);
+        int rand = Random.Range(0, 2500);
+        print("Random score: " + rand);
+        return rand;
     }
 }

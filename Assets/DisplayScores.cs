@@ -14,6 +14,7 @@ public class DisplayScores : MonoBehaviour
 
     [SerializeField] Color highlightColor = Color.magenta;
     [SerializeField] Color topColor = Color.yellow;
+    [SerializeField] Color defaultColor = Color.red;
 
     public TextMeshProUGUI[] usernameTexts;
     public TextMeshProUGUI[] scoreTexts;
@@ -24,7 +25,10 @@ public class DisplayScores : MonoBehaviour
     Leaderboard highscoreManager;
 
     private Highscore previousHighscore;
-    private Highscore currentHighscore;
+    private int previousHighscoreScore;
+    private Highscore newHighscore;
+    private int newHighscoreScore;
+    private int scoreThisRun;
 
     private bool alreadyChecked = false;
     private bool usernameExists;
@@ -48,7 +52,7 @@ public class DisplayScores : MonoBehaviour
 
         highscoreManager = GetComponent<Leaderboard>();
 
-        StartCoroutine(RefreshScores());
+        //StartCoroutine(RefreshScores());
     }
 
     public void OnScoresDownloaded(Highscore[] highscoreList)
@@ -66,48 +70,64 @@ public class DisplayScores : MonoBehaviour
 
     public void OnSingleScoreDownloaded(Highscore singleHighscore, bool isPrevious)
     {
+        ResetColors();
         if (isPrevious)
         {
             previousHighscore = singleHighscore;
+            previousHighscoreScore = previousHighscore.score;
         }
         else
         {
-            currentHighscore = singleHighscore;
-        }
+            newHighscore = singleHighscore;
+            newHighscoreScore = newHighscore.score;
 
-        if (!usernameExists)
-        {
-            ShowNewBest();
-        }
-        else // if username DOES exist
-        {
-            if (currentHighscore.score > previousHighscore.score)
+            if (!usernameExists)
             {
+                print("Username does not exist yet.");
+                print("previousHighscore.score = " + previousHighscore.score);
+                print("newHighscore.score = " + newHighscore.score);
+                print("scoreThisRun = " + scoreThisRun);
                 ShowNewBest();
             }
-            else if (currentHighscore.score == previousHighscore.score)
+            else // if username DOES exist
             {
-                ShowTiedBest();
-            }
-            else if (currentHighscore.score < previousHighscore.score)
-            {
-                ShowOldBest();
+                print("Username DOES exist & new is greater than previous.");
+                print("previousHighscore.score = " + previousHighscore.score);
+                print("newHighscore.score = " + newHighscore.score);
+                print("scoreThisRun = " + scoreThisRun);
+                if (newHighscore.score > previousHighscore.score)
+                {
+                    ShowNewBest();
+                }
+                else if (scoreThisRun == previousHighscore.score)
+                {
+                    ShowTiedBest();
+                }
+                else if (scoreThisRun < previousHighscore.score)
+                {
+                    ShowOldBest();
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid score comparrison state reached!");
+                    Debug.LogWarning("newHighscore: " + newHighscore.score + "\n" + "previousHighscore: " + previousHighscore.score + "\n" + "scoreThisRun: " + scoreThisRun); ;
+                }
             }
         }
     }
 
     private void ShowNewBest()
     {
-        if (currentHighscore.rank == 0)
+        if (newHighscore.rank == 0)
         {
             secondaryHeader.text = altHeaderTop;
             yourUsername.text = "";
             yourScore.text = "";
         }
-        else if (currentHighscore.rank < 10)
+        else if (newHighscore.rank < 10)
         {
-            usernameTexts[currentHighscore.rank].color = highlightColor;
-            scoreTexts[currentHighscore.rank].color = highlightColor;
+            usernameTexts[newHighscore.rank].color = highlightColor;
+            scoreTexts[newHighscore.rank].color = highlightColor;
 
             secondaryHeader.text = altHeaderNewBest;
             yourUsername.text = "";
@@ -116,23 +136,23 @@ public class DisplayScores : MonoBehaviour
         else
         {
             secondaryHeader.text = altHeaderNewBest;
-            yourUsername.text = (currentHighscore.rank + 1) + ". " + currentHighscore.username;
-            yourScore.text = currentHighscore.score.ToString();
+            yourUsername.text = (newHighscore.rank + 1) + ". " + newHighscore.username;
+            yourScore.text = newHighscore.score.ToString();
         }
     }
 
     private void ShowTiedBest()
     {
-        if (currentHighscore.rank == 0)
+        if (newHighscore.rank == 0)
         {
             secondaryHeader.text = altHeaderStillTop;
             yourUsername.text = "";
             yourScore.text = "";
         }
-        else if (currentHighscore.rank < 10)
+        else if (newHighscore.rank < 10)
         {
-            usernameTexts[currentHighscore.rank].color = highlightColor;
-            scoreTexts[currentHighscore.rank].color = highlightColor;
+            usernameTexts[newHighscore.rank].color = highlightColor;
+            scoreTexts[newHighscore.rank].color = highlightColor;
 
             secondaryHeader.text = altHeaderTiedBest;
             yourUsername.text = "";
@@ -141,23 +161,23 @@ public class DisplayScores : MonoBehaviour
         else
         {
             secondaryHeader.text = altHeaderTiedBest;
-            yourUsername.text = (currentHighscore.rank + 1) + ". " + currentHighscore.username;
-            yourScore.text = currentHighscore.score.ToString();
+            yourUsername.text = (newHighscore.rank + 1) + ". " + newHighscore.username;
+            yourScore.text = newHighscore.score.ToString();
         }
     }
 
     private void ShowOldBest()
     {
-        if (currentHighscore.rank == 0)
+        if (newHighscore.rank == 0)
         {
             secondaryHeader.text = altHeaderStillTop;
             yourUsername.text = "";
             yourScore.text = "";
         }
-        else if (currentHighscore.rank < 10)
+        else if (newHighscore.rank < 10)
         {
-            usernameTexts[currentHighscore.rank].color = highlightColor;
-            scoreTexts[currentHighscore.rank].color = highlightColor;
+            usernameTexts[newHighscore.rank].color = highlightColor;
+            scoreTexts[newHighscore.rank].color = highlightColor;
 
             secondaryHeader.text = altHeaderOldBest;
             yourUsername.text = "";
@@ -166,8 +186,8 @@ public class DisplayScores : MonoBehaviour
         else
         {
             secondaryHeader.text = altHeaderOldBest;
-            yourUsername.text = (currentHighscore.rank + 1) + ". " + currentHighscore.username;
-            yourScore.text = currentHighscore.score.ToString();
+            yourUsername.text = (newHighscore.rank + 1) + ". " + newHighscore.username;
+            yourScore.text = newHighscore.score.ToString();
         }
     }
 
@@ -184,8 +204,40 @@ public class DisplayScores : MonoBehaviour
     {
         while (true)
         {
-            highscoreManager.GetScores();
+            highscoreManager.GetScores(null);
             yield return new WaitForSeconds(30f);
         }
+    }
+
+    public void ClearSecondaryFields()
+    {
+        secondaryHeader.text = "";
+        yourUsername.text = "";
+        yourScore.text = "";
+    }
+
+    public void ResetColors()
+    {
+        usernameTexts[0].color = topColor;
+        scoreTexts[0].color = topColor;
+        for (int i = 1; i < usernameTexts.Length; i++)
+        {
+            usernameTexts[i].color = defaultColor;
+            scoreTexts[i].color = defaultColor;
+        }
+    }
+
+    public void ResetHighscores()
+    {
+        previousHighscore = new Highscore();
+        previousHighscoreScore = 0;
+        newHighscore = new Highscore();
+        newHighscoreScore = 0;
+        scoreThisRun = 0;
+    }
+
+    public void SetThisRunsScore(int score)
+    {
+        scoreThisRun = score;
     }
 }
