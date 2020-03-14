@@ -301,4 +301,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a73c7936aa2c54f8687ea91855e9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathTime: 1
+  deathTime: 1.5

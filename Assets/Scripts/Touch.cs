@@ -20,45 +20,97 @@ public class Touch : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("End"))
+        switch (collision.tag)
         {
-            health.gameManager.LevelComplete();
-        }
-        else if (collision.CompareTag("Enemy"))
-        {
-            if (health.gameManager.GetHasSword())
-            {
-                health.gameManager.PlaySound(attackSound);
-                collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
+            case "End":
+                health.gameManager.LevelComplete();
+                break;
+            case "Enemy":
+                if (health.gameManager.GetHasSword())
+                {
+                    health.gameManager.PlaySound(attackSound);
+                    collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
+                    Destroy(collision.gameObject);
+                    StartCoroutine(health.gameManager.UseSword());
+                    //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
+                }
+                else
+                {
+                    health.gameManager.PlaySound(enemyTouchSound);
+                    health.ResetHealth(false);
+                    health.gameManager.GameOver();
+                }
+                break;
+            case "Collectible":
+                health.gameManager.PlaySound(collectibleSound);
                 Destroy(collision.gameObject);
-                StartCoroutine(health.gameManager.UseSword());
-                //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
-            }
-            else
-            {
-                health.gameManager.PlaySound(enemyTouchSound);
-                health.ResetHealth(false);
-                health.gameManager.GameOver();
-            }
-        }
-        else if (collision.CompareTag("Collectible"))
-        {
-            health.gameManager.PlaySound(collectibleSound);
-            Destroy(collision.gameObject);
-            health.gameManager.GainCoins("Collectible");
-        }
-        else if (collision.CompareTag("Sword"))
-        {
-            if (!health.gameManager.GetHasSword())
-            {
-                health.gameManager.PlaySound(swordFoundSound);
-                health.gameManager.SetHasSword(true);
+                health.gameManager.GainCoins("Collectible");
+                break;
+            case "Sword":
+                if (!health.gameManager.GetHasSword())
+                {
+                    health.gameManager.PlaySound(swordFoundSound);
+                    health.gameManager.SetHasSword(true);
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                }
+                break;
+            case "HeartPickup":
+                Debug.Log("Heart found");
+                // TODO heart pickup functionality
                 Destroy(collision.gameObject);
-            }
-            else
-            {
-                Instantiate(errorSound, transform.position, Quaternion.identity);
-            }
+                break;
+            case "AmuletOfWayfinding":
+                Debug.Log("Amulet of Wayfinding found");
+                // TODO amulet functionality
+                Destroy(collision.gameObject);
+                break;
+            default:
+                break;
         }
+
+        //if (collision.CompareTag("End"))
+        //{
+        //    health.gameManager.LevelComplete();
+        //}
+        //else if (collision.CompareTag("Enemy"))
+        //{
+        //    if (health.gameManager.GetHasSword())
+        //    {
+        //        health.gameManager.PlaySound(attackSound);
+        //        collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
+        //        Destroy(collision.gameObject);
+        //        StartCoroutine(health.gameManager.UseSword());
+        //        //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
+        //    }
+        //    else
+        //    {
+        //        health.gameManager.PlaySound(enemyTouchSound);
+        //        health.ResetHealth(false);
+        //        health.gameManager.GameOver();
+        //    }
+        //}
+        //else if (collision.CompareTag("Collectible"))
+        //{
+        //    health.gameManager.PlaySound(collectibleSound);
+        //    Destroy(collision.gameObject);
+        //    health.gameManager.GainCoins("Collectible");
+        //}
+        //else if (collision.CompareTag("Sword"))
+        //{
+        //    if (!health.gameManager.GetHasSword())
+        //    {
+        //        health.gameManager.PlaySound(swordFoundSound);
+        //        health.gameManager.SetHasSword(true);
+        //        Destroy(collision.gameObject);
+        //    }
+        //    else
+        //    {
+        //        Instantiate(errorSound, transform.position, Quaternion.identity);
+        //    }
+        //}
     }
 }
