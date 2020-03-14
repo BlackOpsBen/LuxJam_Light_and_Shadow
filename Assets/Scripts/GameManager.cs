@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject bonusCoinsFuel;
 
+    [SerializeField] GameObject bonusCoinsStageCleared;
+
     [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject diedScreen;
     [SerializeField] GameObject lootScreen;
@@ -27,6 +29,9 @@ public class GameManager : MonoBehaviour
 
     private SceneRandomizer sceneRandomizer;
 
+    private int collectiblesRemaining = 0;
+    private bool stageCleared = false;
+    private int stageClearedAmount = 100;
     [SerializeField] TextMeshProUGUI coinCounter;
     private int coins = 0;
     private int collectibleCoinAmount = 100;
@@ -53,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         sceneRandomizer = FindObjectOfType<SceneRandomizer>();
         illuminate = GetComponent<Illuminate>();
+        ResetCollectiblesRemaining(GameObject.FindGameObjectsWithTag("Collectible").Length);
         GetPlayer();
         PlaySound(startSound);
 
@@ -166,6 +172,11 @@ public class GameManager : MonoBehaviour
             GainCoins("Sword");
             SetHasSword(false);
         }
+        if (stageCleared)
+        {
+            GainCoins("StageCleared");
+            stageCleared = false;
+        }
         StartCoroutine(DelayCanAdvance());
     }
 
@@ -190,6 +201,7 @@ public class GameManager : MonoBehaviour
         coinMultiplier += coinMultiplierIncrease;
         PlaySound(startSound);
         GetPlayer();
+        ResetCollectiblesRemaining(GameObject.FindGameObjectsWithTag("Collectible").Length);
         illuminate.ResetFuel();
         illuminate.SetDisabled(false);
     }
@@ -259,6 +271,7 @@ public class GameManager : MonoBehaviour
         {
             case "Collectible":
                 amount = collectibleCoinAmount;
+                DecrementCollectiblesRemaining();
                 break;
             case "Enemy":
                 amount = enemyCoinAmount;
@@ -266,12 +279,17 @@ public class GameManager : MonoBehaviour
             case "Fuel":
                 amount = fuelCoinAmount * Mathf.RoundToInt(illuminate.GetRemainingFuel()*100);
                 GameObject bonusTextFuel = Instantiate(bonusCoinsFuel, transform.position, Quaternion.identity);
-                bonusTextFuel.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (amount * coinMultiplier).ToString();
+                bonusTextFuel.GetComponentInChildren<TextMeshProUGUI>().text = "+" + Mathf.RoundToInt(amount * coinMultiplier).ToString();
                 break;
             case "Sword":
                 amount = swordCoinAmount;
                 GameObject bonusTextSword = Instantiate(bonusCoinsSword, transform.position, Quaternion.identity);
-                bonusTextSword.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (amount * coinMultiplier).ToString();
+                bonusTextSword.GetComponentInChildren<TextMeshProUGUI>().text = "+" + Mathf.RoundToInt(amount * coinMultiplier).ToString();
+                break;
+            case "StageCleared":
+                amount = stageClearedAmount;
+                GameObject bonusTextStageCleared = Instantiate(bonusCoinsStageCleared, transform.position, Quaternion.identity);
+                bonusTextStageCleared.GetComponentInChildren<TextMeshProUGUI>().text = "+" + Mathf.RoundToInt(amount * coinMultiplier).ToString() + "\n" + "Loot cleared!";
                 break;
             default:
                 Debug.LogWarning("Invalid coin amount/source");
@@ -295,5 +313,19 @@ public class GameManager : MonoBehaviour
     {
         int score = coins;
         Leaderboard.AddNewScore(username, score);
+    }
+
+    public void ResetCollectiblesRemaining(int count)
+    {
+        collectiblesRemaining = count;
+    }
+
+    private void DecrementCollectiblesRemaining()
+    {
+        collectiblesRemaining--;
+        if (collectiblesRemaining == 0)
+        {
+            stageCleared = true;
+        }
     }
 }

@@ -96,5 +96,4 @@ public class SubmissionManager : MonoBehaviour
 }
 
 // TODO Check for existing user and confirm entry
-// TODO add a Stage Cleared bonus
 // TODO remove cheat
