@@ -20,7 +20,7 @@ public class SceneRandomizer : MonoBehaviour
     public void InitializeSceneList()
     {
         SceneBuildNums = new List<int>();
-        for (int i = 1; i < SceneManager.sceneCountInBuildSettings; i++)
+        for (int i = 1; i < SceneManager.sceneCountInBuildSettings - 1; i++)
         {
             SceneBuildNums.Add(i);
         }

@@ -83,18 +83,10 @@ public class DisplayScores : MonoBehaviour
 
             if (!usernameExists)
             {
-                print("Username does not exist yet.");
-                print("previousHighscore.score = " + previousHighscore.score);
-                print("newHighscore.score = " + newHighscore.score);
-                print("scoreThisRun = " + scoreThisRun);
                 ShowNewBest();
             }
             else // if username DOES exist
             {
-                print("Username DOES exist & new is greater than previous.");
-                print("previousHighscore.score = " + previousHighscore.score);
-                print("newHighscore.score = " + newHighscore.score);
-                print("scoreThisRun = " + scoreThisRun);
                 if (newHighscore.score > previousHighscore.score)
                 {
                     ShowNewBest();

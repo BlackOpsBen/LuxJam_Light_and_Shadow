@@ -42,14 +42,12 @@ public class Leaderboard : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(wwwD.text))
             {
-                print("Existing player found: " + username);
                 FormatSingleScore(wwwD.text);
                 displayScores.SetPlayerExists(true);
                 displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
             }
             else
             {
-                print("Player " + username + " doesn't exist yet.");
                 displayScores.SetPlayerExists(false);
             }
             isPreviousScore = false;
@@ -67,7 +65,6 @@ public class Leaderboard : MonoBehaviour
 
         if (string.IsNullOrEmpty(www.error))
         {
-            print("Upload Successful");
             GetScores(username);
         }
         else
@@ -113,7 +110,6 @@ public class Leaderboard : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(wwwD.text))
             {
-                print("Existing player found: " + username);
                 FormatSingleScore(wwwD.text);
                 displayScores.OnSingleScoreDownloaded(singleHighscore, isPreviousScore);
                 displayScores.SetPlayerExists(true);

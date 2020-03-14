@@ -23,6 +23,7 @@ public class Illuminate : MonoBehaviour
     private float fuelLightCost = 0.1f;
     private bool disabled = false;
     private bool isLit = false;
+    private bool isBeingPutOut = false;
 
     private void Start()
     {
@@ -49,8 +50,13 @@ public class Illuminate : MonoBehaviour
     {
         if (!disabled)
         {
+            bool isLastBit = false;
             if (fuel > float.Epsilon && Input.GetButtonDown("Light"))
             {
+                if (fuel < fuelLightCost + .001)
+                {
+                    isLastBit = true;
+                }
                 PlaySound(igniteSound);
                 fuel = Mathf.Clamp(fuel - fuelLightCost, 0f, maxFuel);
                 darkness.SetActive(false);
@@ -67,7 +73,15 @@ public class Illuminate : MonoBehaviour
             }
             else
             {
-                PutOutTorch();
+                if (isLastBit)
+                {
+                    StartCoroutine(DelayedPutTorchOut());
+                    isLastBit = false;
+                }
+                else if (!isBeingPutOut)
+                {
+                    PutOutTorch();
+                }
             }
         }
         else
@@ -122,5 +136,12 @@ public class Illuminate : MonoBehaviour
     public void PlaySound(GameObject sound)
     {
         Instantiate(sound, transform.position, Quaternion.identity);
+    }
+
+    private IEnumerator DelayedPutTorchOut()
+    {
+        isBeingPutOut = true;
+        yield return new WaitForSeconds(.1f);
+        PutOutTorch();
     }
 }

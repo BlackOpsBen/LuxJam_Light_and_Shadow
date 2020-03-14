@@ -55,12 +55,10 @@ public class SubmissionManager : MonoBehaviour
         noButton.onClick.AddListener(delegate () { PressNo(); });
         okButton.onClick.AddListener(delegate () { PressOk(); });
         isInputReady = true;
-        Debug.Log("Coins: " + gameManager.GetCoinCount());
     }
 
     public void PressNo()
     {
-        Debug.Log("No pressed.");
         HideInputUI();
         Leaderboard.OnlyGetScores();
         StartCoroutine(AllowRestart());
@@ -68,11 +66,8 @@ public class SubmissionManager : MonoBehaviour
 
     public void PressOk()
     {
-        Debug.Log("Invalid username.");
         if (isValidUsername)
         {
-            Debug.Log("Valid username entered: " + username);
-
             HideInputUI();
 
             Leaderboard.AddNewScore(username, gameManager.GetCoinCount());
@@ -101,6 +96,5 @@ public class SubmissionManager : MonoBehaviour
 }
 
 // TODO Check for existing user and confirm entry
-// TODO make sure Leaderboard can't be randomly selected level
-// TODO a zero score should not take you to the scores screen.
 // TODO add a Stage Cleared bonus
+// TODO remove cheat

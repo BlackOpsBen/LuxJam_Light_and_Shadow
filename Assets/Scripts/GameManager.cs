@@ -266,12 +266,12 @@ public class GameManager : MonoBehaviour
             case "Fuel":
                 amount = fuelCoinAmount * Mathf.RoundToInt(illuminate.GetRemainingFuel()*100);
                 GameObject bonusTextFuel = Instantiate(bonusCoinsFuel, transform.position, Quaternion.identity);
-                bonusTextFuel.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString();
+                bonusTextFuel.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (amount * coinMultiplier).ToString();
                 break;
             case "Sword":
                 amount = swordCoinAmount;
                 GameObject bonusTextSword = Instantiate(bonusCoinsSword, transform.position, Quaternion.identity);
-                bonusTextSword.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString();
+                bonusTextSword.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (amount * coinMultiplier).ToString();
                 break;
             default:
                 Debug.LogWarning("Invalid coin amount/source");
