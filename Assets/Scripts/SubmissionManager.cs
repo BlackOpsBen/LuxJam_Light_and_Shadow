@@ -95,5 +95,8 @@ public class SubmissionManager : MonoBehaviour
     }
 }
 
-// TODO Check for existing user and confirm entry
 // TODO remove cheat
+// TODO add level counter and game over score screen should reiterate level reached
+// TODO speed bonus
+// TODO new items
+// TODO bonus merchant levels
