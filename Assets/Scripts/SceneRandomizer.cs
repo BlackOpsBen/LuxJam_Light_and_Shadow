@@ -19,6 +19,7 @@ public class SceneRandomizer : MonoBehaviour
 
     public void InitializeSceneList()
     {
+        playedScenes = 0;
         SceneBuildNums = new List<int>();
         for (int i = 1; i < SceneManager.sceneCountInBuildSettings - 1; i++)
         {
@@ -76,5 +77,10 @@ public class SceneRandomizer : MonoBehaviour
         playedScenes++;
         
         return rand;
+    }
+
+    public int GetPlayedScenes()
+    {
+        return playedScenes;
     }
 }

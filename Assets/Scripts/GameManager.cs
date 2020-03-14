@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject winSound;
     [SerializeField] GameObject startSound;
 
+    [SerializeField] TextMeshProUGUI levelCounter;
+    private const string levelCounterPrefix = "Level: ";
+
     [SerializeField] Image swordIcon;
     [SerializeField] Image swordBrokenIcon;
     [SerializeField] GameObject bonusCoinsSword;
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         sceneRandomizer = FindObjectOfType<SceneRandomizer>();
+        levelCounter.text = levelCounterPrefix + 1;
         illuminate = GetComponent<Illuminate>();
         ResetCollectiblesRemaining(GameObject.FindGameObjectsWithTag("Collectible").Length);
         GetPlayer();
@@ -198,6 +202,7 @@ public class GameManager : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Instead of loading the first scene, switching to loading a random scene starting the game over.
         SceneManager.LoadScene(sceneRandomizer.GetRandomSceneIndex());
         yield return null;
+        levelCounter.text = levelCounterPrefix + sceneRandomizer.GetPlayedScenes();
         coinMultiplier += coinMultiplierIncrease;
         PlaySound(startSound);
         GetPlayer();

@@ -90,13 +90,13 @@ public class SubmissionManager : MonoBehaviour
 
     private IEnumerator AllowRestart()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         gameManager.SetCanRestart();
     }
 }
 
 // TODO remove cheat
-// TODO add level counter and game over score screen should reiterate level reached
 // TODO speed bonus
 // TODO new items
 // TODO bonus merchant levels
+// TODO Make continue prompt only specific key (so people can screenshot
