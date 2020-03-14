@@ -802,6 +802,8 @@ MonoBehaviour:
     type: 3}
   torchSprite: {fileID: 5249076458637254597}
   fuelMeterFill: {fileID: 5173085241261705341}
+  darknessPrefab: {fileID: 4160315789205826828, guid: 807078734b490034d8e45e255da39cda,
+    type: 3}
 --- !u!82 &5804623362726010781
 AudioSource:
   m_ObjectHideFlags: 0

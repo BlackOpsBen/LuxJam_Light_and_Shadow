@@ -102,19 +102,20 @@ Tilemap:
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
-      m_AllTileFlags: 1073741825
+      m_AllTileFlags: 1073741826
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 70a942886f8f1c64eae4ab9bb2a65041, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 2e9203e52b6c31b49be363fb097dfe3d, type: 2}
+    m_Data: {fileID: 11400000, guid: 0bf1b4080e2c02646a1447153ffc8a4b, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 1807125615787039003, guid: af1ef3b627fe8dc4fb2b470d347b04a8,
       type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 349823833441268365, guid: af1ef3b627fe8dc4fb2b470d347b04a8, type: 3}
+    m_Data: {fileID: 4648253030244674319, guid: 00b9dcfe9df92de4f92763dd61eab357,
+      type: 3}
   m_TileMatrixArray:
   - m_RefCount: 2
     m_Data:
