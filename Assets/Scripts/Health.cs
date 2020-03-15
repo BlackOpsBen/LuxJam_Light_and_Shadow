@@ -15,7 +15,8 @@ public class Health : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DelayedGetGameManager());
-        hearts = new GameObject[] { GameObject.Find("Heart3"), GameObject.Find("Heart2"), GameObject.Find("Heart1") };
+        hearts = new GameObject[] { GameObject.Find("Heart4"), GameObject.Find("Heart3"), GameObject.Find("Heart2"), GameObject.Find("Heart1") };
+        hearts[0].GetComponent<Image>().enabled = false;
     }
 
     private IEnumerator DelayedGetGameManager()
@@ -36,6 +37,19 @@ public class Health : MonoBehaviour
                 {
                     gameManager.GameOver();
                 }
+                return;
+            }
+        }
+    }
+
+    public void GainHealth()
+    {
+        for (int i = hearts.Length-2; i >= 0; i--)
+        {
+            if (!hearts[i].GetComponent<Image>().enabled)
+            {
+                hearts[i].GetComponent<Image>().enabled = true;
+                gameManager.GainHealth();
                 return;
             }
         }

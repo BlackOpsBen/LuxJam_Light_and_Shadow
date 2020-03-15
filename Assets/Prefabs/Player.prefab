@@ -556,3 +556,5 @@ MonoBehaviour:
     type: 3}
   errorSound: {fileID: 1323706579044135770, guid: a546d06c0cfaf8245b6fa76736e0bba0,
     type: 3}
+  healSound: {fileID: 1323706579044135770, guid: 07660f9c7c54fe84d8c65c7a442d5019,
+    type: 3}

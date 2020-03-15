@@ -127,6 +127,11 @@ public class GameManager : MonoBehaviour
         currentHealth--;
     }
 
+    public void GainHealth()
+    {
+        currentHealth++;
+    }
+
     public int GetHealth()
     {
         return currentHealth;

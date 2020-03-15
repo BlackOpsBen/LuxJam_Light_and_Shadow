@@ -10,6 +10,7 @@ public class Touch : MonoBehaviour
     [SerializeField] GameObject attackSound;
     [SerializeField] GameObject enemyTouchSound;
     [SerializeField] GameObject errorSound;
+    [SerializeField] GameObject healSound;
 
     private Health health;
 
@@ -49,7 +50,8 @@ public class Touch : MonoBehaviour
             case "Sword":
                 if (!health.gameManager.GetHasSword())
                 {
-                    health.gameManager.PlaySound(swordFoundSound);
+                    Instantiate(swordFoundSound, transform.position, Quaternion.identity);
+                    //health.gameManager.PlaySound(swordFoundSound);
                     health.gameManager.SetHasSword(true);
                     Destroy(collision.gameObject);
                 }
@@ -59,9 +61,17 @@ public class Touch : MonoBehaviour
                 }
                 break;
             case "HeartPickup":
-                Debug.Log("Heart found");
-                // TODO heart pickup functionality
-                Destroy(collision.gameObject);
+                if (health.gameManager.GetHealth() < 4)
+                {
+                    Instantiate(healSound, transform.position, Quaternion.identity);
+                    health.GainHealth();
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                }
+                
                 break;
             case "AmuletOfWayfinding":
                 Debug.Log("Amulet of Wayfinding found");
