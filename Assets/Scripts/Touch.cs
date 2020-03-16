@@ -11,6 +11,8 @@ public class Touch : MonoBehaviour
     [SerializeField] GameObject enemyTouchSound;
     [SerializeField] GameObject errorSound;
     [SerializeField] GameObject healSound;
+    [SerializeField] GameObject grabTorchSound;
+    [SerializeField] GameObject grabItemSound;
 
     private Health health;
 
@@ -61,22 +63,43 @@ public class Touch : MonoBehaviour
                 }
                 break;
             case "HeartPickup":
-                if (health.gameManager.GetHealth() < 4)
+                if (health.gameManager.GetHealth() < 4 && health.gameManager.GetCoinCount() >= 1500)
                 {
                     Instantiate(healSound, transform.position, Quaternion.identity);
                     health.GainHealth();
+                    health.gameManager.GainCoins("ItemPurchase");
                     Destroy(collision.gameObject);
                 }
                 else
                 {
                     Instantiate(errorSound, transform.position, Quaternion.identity);
                 }
-                
                 break;
+            case "TorchPickup":
+                if (!FindObjectOfType<Illuminate>().GetHasBackupTorch() && health.gameManager.GetCoinCount() >= 1500)
+                {
+                    Instantiate(grabTorchSound, transform.position, Quaternion.identity);
+                    health.gameManager.GainCoins("ItemPurchase");
+                    FindObjectOfType<Illuminate>().SetHasBackupTorch();
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                }
+                break;
+
             case "AmuletOfWayfinding":
-                Debug.Log("Amulet of Wayfinding found");
-                // TODO amulet functionality
-                Destroy(collision.gameObject);
+                if (health.gameManager.GetCoinCount() >= 1500)
+                {
+                    Instantiate(grabItemSound, transform.position, Quaternion.identity);
+                    health.gameManager.GainCoins("ItemPurchase");
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                }
                 break;
             default:
                 break;

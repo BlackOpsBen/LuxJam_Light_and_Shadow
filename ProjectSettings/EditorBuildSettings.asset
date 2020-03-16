@@ -21,6 +21,12 @@ EditorBuildSettings:
     path: Assets/Scenes/B04.unity
     guid: 00d39ddb3f24e6e46a4c59fe917bf661
   - enabled: 1
+    path: Assets/Scenes/B05_Merchant_1.unity
+    guid: ca04b10fc836f0043825eef89c5338cf
+  - enabled: 1
+    path: Assets/Scenes/B06_Merchant_2.unity
+    guid: 5188ee88d716bd24fb68fcfe6a96d57e
+  - enabled: 1
     path: Assets/Scenes/001.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1

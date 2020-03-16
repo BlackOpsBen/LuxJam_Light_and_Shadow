@@ -39,6 +39,7 @@ RectTransform:
   - {fileID: 8603372355833597961}
   - {fileID: 4837949303327367838}
   - {fileID: 7641253860778761138}
+  - {fileID: 3937185152313439109}
   m_Father: {fileID: 7592008997262284385}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -711,6 +712,79 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6067692830142102285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3937185152313439109}
+  - component: {fileID: 4638897499065037344}
+  - component: {fileID: 2754216666508195758}
+  m_Layer: 5
+  m_Name: BackupTorch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3937185152313439109
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067692830142102285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_Children: []
+  m_Father: {fileID: 130733075202360065}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -24, y: -207}
+  m_SizeDelta: {x: 37.5, y: 81.25}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4638897499065037344
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067692830142102285}
+  m_CullTransparentMesh: 0
+--- !u!114 &2754216666508195758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067692830142102285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d8b583b3dc01b424e83c586608ef71e1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6225691500777431398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1075,8 @@ MonoBehaviour:
   restartDelay: 1
   prompt: {fileID: 6337130032985674000, guid: 6372193a5f0cc8d4daf86e70943054a5, type: 3}
   coinCounter: {fileID: 6786191188651857914}
+  itemCostDeductedText: {fileID: 1681316483921447235, guid: 32187ef20c2aaed40a0f8d3ab05445c9,
+    type: 3}
 --- !u!114 &7592008997262284415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +1108,10 @@ MonoBehaviour:
   flameSound: {fileID: 5804623362726010781}
   eerieSound: {fileID: 1323706579044135770, guid: 3525888880390fc42a7ff01488c958ed,
     type: 3}
+  useBackupTorchSound: {fileID: 1323706579044135770, guid: cf53f816701407244858a0925d9c9b5a,
+    type: 3}
   torchSprite: {fileID: 5249076458637254597}
+  backupTorchSprite: {fileID: 2754216666508195758}
   fuelMeterFill: {fileID: 5173085241261705341}
 --- !u!82 &5804623362726010781
 AudioSource:

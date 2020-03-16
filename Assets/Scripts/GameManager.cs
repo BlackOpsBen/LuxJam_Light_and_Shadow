@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     private float coinMultiplier = 1f;
     private float coinMultiplierIncrease = 0.1f;
 
+    private int itemCost = 1500;
+    [SerializeField] GameObject itemCostDeductedText;
+
     private PlayerMovement player;
     private bool canRestart = false;
     private bool canAdvance = false;
@@ -86,6 +89,19 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.L))
         {
             LevelComplete();
+        }
+
+        // Cheat to gain 499 coins
+        if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.C))
+        {
+            coins += 499;
+            coinCounter.text = coins.ToString();
+        }
+
+        // Cheat to reset fuel
+        if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.F))
+        {
+            illuminate.ResetFuel();
         }
     }
 
@@ -279,6 +295,10 @@ public class GameManager : MonoBehaviour
         int amount = 0;
         switch (source)
         {
+            case "ItemPurchase":
+                amount = -itemCost;
+                Instantiate(itemCostDeductedText, transform.position, Quaternion.identity);
+                break;
             case "Collectible":
                 amount = collectibleCoinAmount;
                 DecrementCollectiblesRemaining();

@@ -558,3 +558,7 @@ MonoBehaviour:
     type: 3}
   healSound: {fileID: 1323706579044135770, guid: 07660f9c7c54fe84d8c65c7a442d5019,
     type: 3}
+  grabTorchSound: {fileID: 1323706579044135770, guid: cf53f816701407244858a0925d9c9b5a,
+    type: 3}
+  grabItemSound: {fileID: 1323706579044135770, guid: 54c5f98e8bf910f449b76acf84679854,
+    type: 3}

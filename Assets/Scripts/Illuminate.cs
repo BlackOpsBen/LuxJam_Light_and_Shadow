@@ -9,9 +9,12 @@ public class Illuminate : MonoBehaviour
     [SerializeField] GameObject burnoutSound;
     [SerializeField] AudioSource flameSound;
     [SerializeField] GameObject eerieSound;
+    [SerializeField] GameObject useBackupTorchSound;
     private bool playedEerieSound = false;
 
     [SerializeField] Image torchSprite;
+    [SerializeField] Image backupTorchSprite;
+    private bool hasBackupTorch = false;
     [SerializeField] RectTransform fuelMeterFill;
     private float fuelMeterMaxSize = 32f;
     private float fuelMeterCurrentSize;
@@ -28,6 +31,7 @@ public class Illuminate : MonoBehaviour
     private void Start()
     {
         darkness = GameObject.Find("Darkness");
+        backupTorchSprite.enabled = false;
     }
 
     private void Update()
@@ -44,6 +48,10 @@ public class Illuminate : MonoBehaviour
                 fuelMeterFill.localScale = new Vector3(fuelMeterCurrentSize, 1f, 1f);
             }
         }
+        else if (hasBackupTorch)
+        {
+            SetDisabled(false);
+        }
     }
 
     private void GetUseTorch()
@@ -51,11 +59,18 @@ public class Illuminate : MonoBehaviour
         if (!disabled)
         {
             bool isLastBit = false;
-            if (fuel > float.Epsilon && Input.GetButtonDown("Light"))
+            if ((fuel > float.Epsilon || hasBackupTorch) && Input.GetButtonDown("Light"))
             {
                 if (fuel < fuelLightCost + .001)
                 {
                     isLastBit = true;
+                }
+                if (hasBackupTorch && playedEerieSound)
+                {
+                    Instantiate(useBackupTorchSound, transform.position, Quaternion.identity);
+                    ResetFuel();
+                    hasBackupTorch = false;
+                    backupTorchSprite.enabled = false;
                 }
                 PlaySound(igniteSound);
                 fuel = Mathf.Clamp(fuel - fuelLightCost, 0f, maxFuel);
@@ -143,5 +158,16 @@ public class Illuminate : MonoBehaviour
         isBeingPutOut = true;
         yield return new WaitForSeconds(.1f);
         PutOutTorch();
+    }
+
+    public void SetHasBackupTorch()
+    {
+        hasBackupTorch = true;
+        backupTorchSprite.enabled = true;
+    }
+
+    public bool GetHasBackupTorch()
+    {
+        return hasBackupTorch;
     }
 }

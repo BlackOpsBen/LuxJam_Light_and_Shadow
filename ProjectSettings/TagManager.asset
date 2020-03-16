@@ -16,6 +16,7 @@ TagManager:
   - RandomSceneManager
   - HeartPickup
   - AmuletOfWayfinding
+  - TorchPickup
   layers:
   - Default
   - TransparentFX
