@@ -8,7 +8,7 @@ public class SceneRandomizer : MonoBehaviour
     List<int> SceneBuildNums = new List<int>();
     private int playedScenes = 0;
     private int scenesSinceBonus = 0;
-    private int bonusScenesInBuildSettings = 6; // This needs to be manually set to the number of bonus scenes I have included in build settings.
+    private int bonusScenesInBuildSettings = 7; // This needs to be manually set to the number of bonus scenes I have included in build settings.
     private int numBonusScenes;
     private int arbitraryNumber = 3;
     private bool bonusIsEligible = false;

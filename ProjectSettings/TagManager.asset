@@ -17,6 +17,7 @@ TagManager:
   - HeartPickup
   - AmuletOfWayfinding
   - TorchPickup
+  - Armor
   layers:
   - Default
   - TransparentFX

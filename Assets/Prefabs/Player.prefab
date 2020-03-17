@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 1513074932}
   - component: {fileID: 4325529623698303090}
   - component: {fileID: 4766766354711087133}
+  - component: {fileID: 784828329381606206}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -454,6 +455,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56ce0c204940474a8256d65b012f47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &784828329381606206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458067036822517290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc35197af3f4ed14f88055ad073eb161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSprite: {fileID: 3458067036418935911}
+  defaultSprite: {fileID: 21300000, guid: f65006399322e12458376e01d284d29d, type: 3}
+  armoredSprite: {fileID: 21300000, guid: 7d3deee7ae98cc4428ca783bd3629f3a, type: 3}
 --- !u!1 &7698967227188992000
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +569,8 @@ MonoBehaviour:
   attackSound: {fileID: 1323706579044135770, guid: e2b5d5f771e460244a21a71094e23400,
     type: 3}
   enemyTouchSound: {fileID: 1323706579044135770, guid: 876ddee6c1cb96842a513529b1100ac1,
+    type: 3}
+  armorBreakSound: {fileID: 1323706579044135770, guid: 7ad75a857a16e2240b7e1d8130083531,
     type: 3}
   errorSound: {fileID: 1323706579044135770, guid: a546d06c0cfaf8245b6fa76736e0bba0,
     type: 3}

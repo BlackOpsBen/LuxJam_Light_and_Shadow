@@ -9,15 +9,20 @@ public class Touch : MonoBehaviour
     [SerializeField] GameObject swordFoundSound;
     [SerializeField] GameObject attackSound;
     [SerializeField] GameObject enemyTouchSound;
+    [SerializeField] GameObject armorBreakSound;
     [SerializeField] GameObject errorSound;
     [SerializeField] GameObject healSound;
     [SerializeField] GameObject grabTorchSound;
     [SerializeField] GameObject grabItemSound;
 
     private Health health;
+    private Armor armor;
+    private PlayerMovement playerMovement;
 
     private void Start()
     {
+        playerMovement = GetComponentInParent<PlayerMovement>();
+        armor = GetComponentInParent<Armor>();
         health = GetComponentInParent<Health>();
     }
 
@@ -35,7 +40,13 @@ public class Touch : MonoBehaviour
                     collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
                     Destroy(collision.gameObject);
                     StartCoroutine(health.gameManager.UseSword());
-                    //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
+                }
+                else if (armor.GetIsArmored())
+                {
+                    health.gameManager.SetIsArmored(false);
+                    playerMovement.transform.position = playerMovement.GetPreviousPosition();
+                    armor.SetIsArmored(false);
+                    Instantiate(armorBreakSound, transform.position, Quaternion.identity);
                 }
                 else
                 {
@@ -59,7 +70,7 @@ public class Touch : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                    PlayErrorSound();
                 }
                 break;
             case "HeartPickup":
@@ -72,7 +83,7 @@ public class Touch : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                    PlayErrorSound();
                 }
                 break;
             case "TorchPickup":
@@ -80,12 +91,12 @@ public class Touch : MonoBehaviour
                 {
                     Instantiate(grabTorchSound, transform.position, Quaternion.identity);
                     health.gameManager.GainCoins("ItemPurchase");
-                    FindObjectOfType<Illuminate>().SetHasBackupTorch();
+                    FindObjectOfType<Illuminate>().SetHasBackupTorch(true);
                     Destroy(collision.gameObject);
                 }
                 else
                 {
-                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                    PlayErrorSound();
                 }
                 break;
 
@@ -98,52 +109,35 @@ public class Touch : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(errorSound, transform.position, Quaternion.identity);
+                    PlayErrorSound();
+                }
+                break;
+            case "Armor":
+                if (!armor.GetIsArmored() && health.gameManager.GetCoinCount() >= 1500)
+                {
+                    GainArmor();
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    PlayErrorSound();
                 }
                 break;
             default:
                 break;
         }
+    }
 
-        //if (collision.CompareTag("End"))
-        //{
-        //    health.gameManager.LevelComplete();
-        //}
-        //else if (collision.CompareTag("Enemy"))
-        //{
-        //    if (health.gameManager.GetHasSword())
-        //    {
-        //        health.gameManager.PlaySound(attackSound);
-        //        collision.gameObject.GetComponent<OnDeath>().isBeingKilled = true;
-        //        Destroy(collision.gameObject);
-        //        StartCoroutine(health.gameManager.UseSword());
-        //        //health.gameManager.GainCoins("Enemy"); // delegating this to the Game Manager so it happens after sword breaks
-        //    }
-        //    else
-        //    {
-        //        health.gameManager.PlaySound(enemyTouchSound);
-        //        health.ResetHealth(false);
-        //        health.gameManager.GameOver();
-        //    }
-        //}
-        //else if (collision.CompareTag("Collectible"))
-        //{
-        //    health.gameManager.PlaySound(collectibleSound);
-        //    Destroy(collision.gameObject);
-        //    health.gameManager.GainCoins("Collectible");
-        //}
-        //else if (collision.CompareTag("Sword"))
-        //{
-        //    if (!health.gameManager.GetHasSword())
-        //    {
-        //        health.gameManager.PlaySound(swordFoundSound);
-        //        health.gameManager.SetHasSword(true);
-        //        Destroy(collision.gameObject);
-        //    }
-        //    else
-        //    {
-        //        Instantiate(errorSound, transform.position, Quaternion.identity);
-        //    }
-        //}
+    public void GainArmor() // TODO set to private when removing all cheats
+    {
+        Instantiate(grabItemSound, transform.position, Quaternion.identity);
+        armor.SetIsArmored(true);
+        health.gameManager.GainCoins("ItemPurchase");
+        health.gameManager.SetIsArmored(true);
+    }
+
+    private void PlayErrorSound()
+    {
+        Instantiate(errorSound, transform.position, Quaternion.identity);
     }
 }

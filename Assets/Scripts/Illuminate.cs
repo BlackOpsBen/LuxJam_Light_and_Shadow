@@ -160,10 +160,10 @@ public class Illuminate : MonoBehaviour
         PutOutTorch();
     }
 
-    public void SetHasBackupTorch()
+    public void SetHasBackupTorch(bool value)
     {
-        hasBackupTorch = true;
-        backupTorchSprite.enabled = true;
+        hasBackupTorch = value;
+        backupTorchSprite.enabled = value;
     }
 
     public bool GetHasBackupTorch()

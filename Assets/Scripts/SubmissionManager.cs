@@ -97,6 +97,4 @@ public class SubmissionManager : MonoBehaviour
 
 // TODO remove cheat
 // TODO add intro text
-// TODO new items
-// TODO bonus merchant levels
 // TODO Make continue prompt only specific key (so people can screenshot

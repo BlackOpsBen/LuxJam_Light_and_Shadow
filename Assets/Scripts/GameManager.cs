@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image swordBrokenIcon;
     [SerializeField] GameObject bonusCoinsSword;
 
+    [SerializeField] Image armorIcon;
+    private bool isArmored = false;
+
     [SerializeField] GameObject bonusCoinsFuel;
 
     [SerializeField] GameObject bonusCoinsStageCleared;
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour
 
         swordIcon.enabled = false;
         swordBrokenIcon.enabled = false;
+        armorIcon.enabled = false;
     }
 
     private void GetPlayer()
@@ -102,6 +106,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.F))
         {
             illuminate.ResetFuel();
+        }
+
+        // Cheat to gain armor
+        if (Input.GetKey(KeyCode.Backspace) && Input.GetKeyDown(KeyCode.A))
+        {
+            player.GetComponentInChildren<Touch>().GainArmor();
         }
     }
 
@@ -237,6 +247,8 @@ public class GameManager : MonoBehaviour
         health.ResetHealth(true);
         currentHealth = 3;
         SetHasSword(false);
+        SetIsArmored(false);
+        illuminate.SetHasBackupTorch(false);
         ResetCoins();
         //SceneManager.LoadScene(0); // Instead of loading the first scene, switching to loading a random scene starting the game over.
         sceneRandomizer.InitializeSceneList();
@@ -298,7 +310,9 @@ public class GameManager : MonoBehaviour
             case "ItemPurchase":
                 amount = -itemCost;
                 Instantiate(itemCostDeductedText, transform.position, Quaternion.identity);
-                break;
+                coins += amount;
+                coinCounter.text = coins.ToString();
+                return;
             case "Collectible":
                 amount = collectibleCoinAmount;
                 DecrementCollectiblesRemaining();
@@ -357,5 +371,16 @@ public class GameManager : MonoBehaviour
         {
             stageCleared = true;
         }
+    }
+
+    public void SetIsArmored(bool value)
+    {
+        armorIcon.enabled = value;
+        isArmored = value;
+    }
+
+    public bool GetIsArmored()
+    {
+        return isArmored;
     }
 }

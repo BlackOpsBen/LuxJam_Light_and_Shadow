@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool disabled = true;
 
+    private Vector2 previousPostition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown(directions[i]))
             {
+                previousPostition = new Vector2(transform.position.x, transform.position.y);
                 if (eligibleDirections[i])
                 {
                     transform.position = new Vector3(transform.position.x + directionVectors[i].x, transform.position.y + directionVectors[i].y);
@@ -126,5 +129,10 @@ public class PlayerMovement : MonoBehaviour
     public void PlaySound(GameObject sound)
     {
         Instantiate(sound, transform.position, Quaternion.identity);
+    }
+
+    public Vector2 GetPreviousPosition()
+    {
+        return previousPostition;
     }
 }
